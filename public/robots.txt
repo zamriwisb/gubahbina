@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+# Kemas kini domain sebenar di sini, dalam astro.config.mjs, dan dalam
+# src/config/site.ts apabila domain telah ditetapkan.
+Sitemap: https://www.example-gabionwall.com/sitemap-index.xml

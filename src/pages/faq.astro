@@ -1,0 +1,151 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Icon from '../components/Icon.astro';
+import Faq from '../components/Faq.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { waLink } from '../config/site';
+import { faqs } from '../data/content';
+
+/** FAQPage structured data — the answers below are the source of truth. */
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a.join(' ') },
+  })),
+};
+---
+
+<Base
+  title="Soalan Lazim Gabion Wall | Kos, Ketahanan, Kesesuaian & Proses"
+  description="Soalan lazim tentang gabion wall: apa itu gabion wall, di mana ia sesuai, bagaimana kos ditentukan, ketahanan struktur, dan proses semakan tapak."
+  path="/faq/"
+  jsonLd={faqSchema}
+>
+  <PageHero
+    title="Soalan lazim"
+    lede="Soalan yang paling kerap ditanya sebelum kerja bermula. Jika soalan anda tiada di sini, tanya terus melalui WhatsApp."
+    path="/faq/"
+  />
+
+  <section class="section">
+    <div class="wrap faq-layout">
+      <div class="faq-layout__main">
+        <Faq items={faqs} />
+      </div>
+
+      <aside class="faq-aside">
+        <div class="aside-card">
+          <span class="aside-card__icon"><Icon name="whatsapp" size={26} /></span>
+          <h2>Soalan anda tiada di sini?</h2>
+          <p>
+            Tanya terus melalui WhatsApp. Anda boleh sertakan gambar keadaan
+            tapak supaya jawapan yang diberi lebih tepat.
+          </p>
+          <a
+            class="btn btn--block"
+            href={waLink('Salam, saya ada soalan tentang gabion wall.')}
+            target="_blank"
+            rel="noopener"
+          >
+            <Icon name="whatsapp" size={20} />
+            Tanya di WhatsApp
+          </a>
+        </div>
+
+        <div class="aside-note">
+          <h2>Tentang kos</h2>
+          <p>
+            Kami tidak menyiarkan harga tetap kerana kos bergantung sepenuhnya
+            pada keadaan tapak — panjang, ketinggian, jenis tanah asas, dan
+            laluan masuk untuk membawa bahan.
+          </p>
+          <p>
+            Sebut harga hanya diberikan selepas keadaan tapak disemak.
+          </p>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <CtaBand
+    heading="Masih tidak pasti?"
+    body="Cara paling cepat untuk dapat jawapan yang tepat ialah menghantar gambar keadaan tapak. Kami akan lihat dan beritahu apa yang boleh dilakukan."
+    message="Salam, saya ada soalan tentang gabion wall untuk tapak saya."
+  />
+</Base>
+
+<style>
+  .faq-layout {
+    display: grid;
+    gap: var(--space-xl);
+    align-items: start;
+  }
+
+  @media (min-width: 64rem) {
+    .faq-layout {
+      grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
+      gap: var(--space-2xl);
+    }
+
+    .faq-aside {
+      position: sticky;
+      top: calc(var(--header-h) + var(--space-m));
+    }
+  }
+
+  .faq-aside {
+    display: grid;
+    gap: var(--space-m);
+  }
+
+  .aside-card {
+    padding: var(--space-m);
+    background: var(--stone-000);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius-m);
+    box-shadow: var(--shadow-s);
+  }
+
+  .aside-card__icon {
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: var(--radius-s);
+    background: var(--action-100);
+    color: var(--action-700);
+    margin-bottom: var(--space-s);
+  }
+
+  .aside-card h2,
+  .aside-note h2 {
+    font-size: var(--step-1);
+    text-transform: none;
+    font-stretch: 100%;
+    letter-spacing: 0;
+  }
+
+  .aside-card p {
+    margin: 0.5rem 0 var(--space-m);
+    font-size: var(--step--1);
+    line-height: 1.6;
+    color: var(--graphite-600);
+  }
+
+  .aside-note {
+    padding: var(--space-m);
+    background: var(--stone-100);
+    border-radius: var(--radius-m);
+  }
+
+  .aside-note p {
+    margin-top: 0.5rem;
+    font-size: var(--step--1);
+    line-height: 1.6;
+    color: var(--graphite-700);
+  }
+</style>

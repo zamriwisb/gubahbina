@@ -1,0 +1,83 @@
+---
+/**
+ * Authored icon set. One 24×24 grid, 1.75 stroke, round caps and joins.
+ * Brand marks (WhatsApp, Facebook) are the only filled glyphs.
+ * No emoji or unicode characters are used as icons anywhere on this site.
+ */
+
+import type { IconName } from '../types';
+
+interface Props {
+  name: IconName;
+  size?: number;
+  class?: string;
+}
+
+const { name, size = 24, class: className } = Astro.props;
+
+/** Filled brand marks — drawn as solid glyphs, not strokes. */
+const FILLED: Partial<Record<IconName, string>> = {
+  whatsapp:
+    'M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38a9.87 9.87 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.11.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.24-8.23a8.19 8.19 0 0 1 8.23 8.24c0 4.54-3.7 8.23-8.24 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.78.97-.15.16-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.44.13-.15.17-.25.25-.42.09-.16.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43h-.47c-.16 0-.43.06-.65.31-.23.25-.86.84-.86 2.05s.88 2.38 1 2.54c.13.17 1.74 2.65 4.21 3.71.59.26 1.05.41 1.4.52.59.19 1.13.16 1.55.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.11-.22-.17-.47-.29Z',
+  facebook:
+    'M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5.02 3.66 9.18 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.52 1.49-3.91 3.77-3.91 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.78-1.63 1.57v1.89h2.78l-.45 2.91h-2.33V22c4.78-.76 8.44-4.92 8.44-9.94Z',
+};
+
+/** Stroked pictograms — each path list is drawn with a shared stroke style. */
+const STROKED: Partial<Record<IconName, string[]>> = {
+  // Ground giving way: a bank profile with the face slipping downward.
+  'slope-fail': ['M2 20h20', 'M3 20V9c0-1.1.9-2 2-2h4l2 3', 'M11 10l3 4 3-1 4 7', 'M12 4v3.5', 'M15.5 5l-1.2 3.3', 'M8.5 5l1.2 3.3'],
+  // A wire cage: the mesh grid that defines the product.
+  gabion: ['M3 6h18v12H3z', 'M9 6v12', 'M15 6v12', 'M3 10h18', 'M3 14h18'],
+  // Water passing straight through the structure rather than building behind it.
+  drainage: ['M8 3v18', 'M16 3v18', 'M2 8h17', 'M16.5 5.5 19.5 8l-3 2.5', 'M2 16h17', 'M16.5 13.5 19.5 16l-3 2.5'],
+  // Stone courses laid in a retaining wall, staggered.
+  wall: ['M3 5h18v14H3z', 'M3 9.66h18', 'M3 14.33h18', 'M10 5v4.66', 'M17 5v4.66', 'M6.5 9.66v4.67', 'M13.5 9.66v4.67', 'M20.5 9.66v4.67', 'M10 14.33V19', 'M17 14.33V19'],
+  water: ['M2 7c2.5-2 4.5 2 7 0s4.5 2 7 0 4.5 2 6 0', 'M2 13c2.5-2 4.5 2 7 0s4.5 2 7 0 4.5 2 6 0', 'M2 19c2.5-2 4.5 2 7 0s4.5 2 7 0 4.5 2 6 0'],
+  // Measuring a slope on site.
+  survey: ['M3 20h18', 'M4 20 16 6', 'M6.6 16.9l2.2 1.9', 'M9.6 13.4l2.2 1.9', 'M12.6 9.9l2.2 1.9', 'M16 6h4v4'],
+  // A premises — used for the business address, not the survey glyph.
+  building: ['M4 21V6.5L12 3l8 3.5V21', 'M3 21h18', 'M9.5 21v-4.5h5V21', 'M8 9.5h2', 'M14 9.5h2', 'M8 13h2', 'M14 13h2'],
+  stone: ['M4 15.5 8.5 9l5 2.5 1.5-4.5 5 5.5-2 5.5H5.5z', 'M8.5 9 9 17', 'M13.5 11.5l1.5 5.5'],
+  shield: ['M12 3 4.5 6v5.5c0 4.2 3.1 7.9 7.5 9.5 4.4-1.6 7.5-5.3 7.5-9.5V6z', 'M9 12.2l2.2 2.3L15.5 10'],
+  warning: ['M12 4 2.8 20h18.4z', 'M12 10v4.5', 'M12 17.4v.1'],
+  check: ['M4 12.5 9 17.5 20 6.5'],
+  'arrow-right': ['M4 12h15', 'M13 6l6 6-6 6'],
+  'chevron-down': ['M6 9.5l6 6 6-6'],
+  phone: ['M6.5 3h3l1.5 4.5-2 1.5a12 12 0 0 0 6 6l1.5-2L21 14.5v3a2.5 2.5 0 0 1-2.7 2.5A17 17 0 0 1 3.5 5.7 2.5 2.5 0 0 1 6 3z'],
+  mail: ['M3 6h18v12H3z', 'M3.5 6.8 12 13l8.5-6.2'],
+  pin: ['M12 21.5s7-6.6 7-11.2A7 7 0 0 0 5 10.3c0 4.6 7 11.2 7 11.2z', 'M12 12.7a2.6 2.6 0 1 0 0-5.2 2.6 2.6 0 0 0 0 5.2z'],
+  clock: ['M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z', 'M12 7.2V12l3.2 2.2'],
+  menu: ['M3 6.5h18', 'M3 12h18', 'M3 17.5h18'],
+  close: ['M5.5 5.5l13 13', 'M18.5 5.5l-13 13'],
+};
+
+const filled = FILLED[name];
+const stroked = STROKED[name];
+---
+
+<svg
+  class={className}
+  width={size}
+  height={size}
+  viewBox="0 0 24 24"
+  fill="none"
+  aria-hidden="true"
+  focusable="false"
+>
+  {filled && <path d={filled} fill="currentColor" />}
+  {
+    stroked && (
+      <g
+        stroke="currentColor"
+        stroke-width="1.75"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        {stroked.map((d) => (
+          <path d={d} />
+        ))}
+      </g>
+    )
+  }
+</svg>

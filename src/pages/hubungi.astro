@@ -1,0 +1,606 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Icon from '../components/Icon.astro';
+import { site, waLink } from '../config/site';
+import { processSteps } from '../data/content';
+
+const problemTypes = [
+  'Tebing terhakis / runtuh',
+  'Cerun berisiko bergerak',
+  'Tembok penahan sedia ada bermasalah',
+  'Masalah aliran air / saliran',
+  'Perlukan tembok penahan baharu',
+  'Lain-lain / belum pasti',
+];
+---
+
+<Base
+  title="Hubungi Pakar Gabion Wall | WhatsApp, Semakan Tapak & Sebut Harga"
+  description="Hubungi kami untuk semakan tapak dan sebut harga pemasangan gabion wall. WhatsApp adalah cara paling cepat — hantar gambar keadaan tapak anda."
+  path="/hubungi/"
+>
+  <PageHero
+    title="Hubungi kami"
+    lede="WhatsApp adalah cara paling cepat. Hantar gambar keadaan tapak, dan kami akan lihat serta cadangkan langkah seterusnya."
+    path="/hubungi/"
+  />
+
+  <section class="section">
+    <div class="wrap contact">
+      <!-- Direct channels -->
+      <div class="contact__channels">
+        <h2>Cara berhubung</h2>
+
+        <a
+          class="channel channel--primary"
+          href={waLink()}
+          target="_blank"
+          rel="noopener"
+        >
+          <span class="channel__icon"><Icon name="whatsapp" size={26} /></span>
+          <span class="channel__body">
+            <span class="channel__label">WhatsApp</span>
+            <span class="channel__value">{site.contact.whatsappDisplay}</span>
+            <span class="channel__hint">Cara paling cepat — boleh hantar gambar terus</span>
+          </span>
+          <Icon name="arrow-right" size={20} class="channel__go" />
+        </a>
+
+        <a class="channel" href={`tel:${site.contact.phoneNumber}`}>
+          <span class="channel__icon"><Icon name="phone" size={24} /></span>
+          <span class="channel__body">
+            <span class="channel__label">Telefon</span>
+            <span class="channel__value">{site.contact.phoneDisplay}</span>
+          </span>
+        </a>
+
+        {
+          site.contact.email && (
+            <a class="channel" href={`mailto:${site.contact.email}`}>
+              <span class="channel__icon">
+                <Icon name="mail" size={24} />
+              </span>
+              <span class="channel__body">
+                <span class="channel__label">E-mel</span>
+                <span class="channel__value">{site.contact.email}</span>
+              </span>
+            </a>
+          )
+        }
+
+        <a class="channel" href={site.contact.facebook} target="_blank" rel="noopener">
+          <span class="channel__icon"><Icon name="facebook" size={24} /></span>
+          <span class="channel__body">
+            <span class="channel__label">Facebook</span>
+            <span class="channel__value">Halaman rasmi</span>
+          </span>
+        </a>
+
+        <dl class="meta">
+          <div>
+            <dt><Icon name="pin" size={18} /> Kawasan perkhidmatan</dt>
+            <dd>{site.serviceArea}</dd>
+          </div>
+          {
+            site.contact.hours && (
+              <div>
+                <dt>
+                  <Icon name="clock" size={18} /> Waktu operasi
+                </dt>
+                <dd>{site.contact.hours}</dd>
+              </div>
+            )
+          }
+          <div>
+            <dt><Icon name="building" size={18} /> Alamat</dt>
+            <dd>{site.contact.address}</dd>
+          </div>
+        </dl>
+      </div>
+
+      <!-- Structured enquiry, delivered through WhatsApp -->
+      <div class="contact__form">
+        <h2>Hantar butiran tapak</h2>
+        <p class="form-intro">
+          Isi maklumat di bawah dan butang akan membuka WhatsApp dengan mesej
+          yang sudah tersusun. Anda boleh lampirkan gambar selepas itu.
+        </p>
+
+        <form id="borang" novalidate>
+          <div class="field">
+            <label for="nama">Nama <span aria-hidden="true">*</span></label>
+            <input
+              id="nama"
+              name="nama"
+              type="text"
+              autocomplete="name"
+              aria-describedby="ralat-nama"
+              required
+            />
+            <p class="field__error" id="ralat-nama" data-error-for="nama" role="alert" hidden>
+              Sila masukkan nama anda.
+            </p>
+          </div>
+
+          <div class="field">
+            <label for="telefon">Nombor telefon <span aria-hidden="true">*</span></label>
+            <input
+              id="telefon"
+              name="telefon"
+              type="tel"
+              inputmode="tel"
+              autocomplete="tel"
+              placeholder="Contoh: 012-345 6789"
+              aria-describedby="ralat-telefon"
+              required
+            />
+            <p
+              class="field__error"
+              id="ralat-telefon"
+              data-error-for="telefon"
+              role="alert"
+              hidden
+            >
+              Sila masukkan nombor telefon yang boleh dihubungi.
+            </p>
+          </div>
+
+          <div class="field">
+            <label for="lokasi">Lokasi tapak <span aria-hidden="true">*</span></label>
+            <input
+              id="lokasi"
+              name="lokasi"
+              type="text"
+              placeholder="Daerah dan negeri"
+              aria-describedby="ralat-lokasi"
+              required
+            />
+            <p class="field__error" id="ralat-lokasi" data-error-for="lokasi" role="alert" hidden>
+              Sila nyatakan daerah dan negeri tapak anda.
+            </p>
+          </div>
+
+          <div class="field">
+            <label for="jenis">Jenis masalah</label>
+            <select id="jenis" name="jenis">
+              <option value="">Pilih jenis masalah</option>
+              {problemTypes.map((t) => <option value={t}>{t}</option>)}
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="butiran">Butiran ringkas</label>
+            <textarea
+              id="butiran"
+              name="butiran"
+              rows="4"
+              placeholder="Contoh: tebing di belakang rumah semakin terhakis selepas hujan lebat. Anggaran panjang 20 kaki."
+            ></textarea>
+          </div>
+
+          <button class="btn btn--block" type="submit">
+            <Icon name="whatsapp" size={20} />
+            Buka WhatsApp dengan butiran ini
+          </button>
+
+          <p class="form-note">
+            Butiran yang anda isi tidak disimpan di mana-mana. Ia hanya
+            digunakan untuk menyusun mesej WhatsApp anda.
+          </p>
+
+          <noscript>
+            <p class="form-note form-note--warn">
+              Borang ini memerlukan JavaScript untuk menyusun mesej. Sila
+              gunakan butang WhatsApp di sebelah, atau telefon terus.
+            </p>
+          </noscript>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="section field-stone">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Selepas anda menghubungi kami</h2>
+      </div>
+      <ol class="steps">
+        {
+          processSteps.map((step, i) => (
+            <li class="step">
+              <span class="step__num" aria-hidden="true">
+                {i + 1}
+              </span>
+              <div>
+                <h3>{step.title}</h3>
+                <p>{step.body}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- Map -->
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Lokasi</h2>
+      </div>
+      {
+        site.contact.mapEmbedUrl && (
+          <div class="map">
+            <iframe
+              src={site.contact.mapEmbedUrl}
+              title="Peta lokasi perniagaan"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+            />
+          </div>
+        )
+      }
+    </div>
+  </section>
+</Base>
+
+<script define:vars={{ waBase: `https://wa.me/${site.contact.whatsappNumber}` }}>
+  const form = document.getElementById('borang');
+
+  if (form) {
+    const showError = (name, show) => {
+      const field = form.querySelector(`[name="${name}"]`);
+      const error = form.querySelector(`[data-error-for="${name}"]`);
+      if (!field || !error) return;
+      error.hidden = !show;
+      field.setAttribute('aria-invalid', show ? 'true' : 'false');
+      field.classList.toggle('is-invalid', show);
+    };
+
+    // Clear an error as soon as the visitor starts fixing it.
+    ['nama', 'telefon', 'lokasi'].forEach((name) => {
+      const field = form.querySelector(`[name="${name}"]`);
+      field?.addEventListener('input', () => {
+        if (field.value.trim()) showError(name, false);
+      });
+    });
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const data = new FormData(form);
+      const get = (k) => String(data.get(k) ?? '').trim();
+
+      let firstInvalid = null;
+      ['nama', 'telefon', 'lokasi'].forEach((name) => {
+        const empty = !get(name);
+        showError(name, empty);
+        if (empty && !firstInvalid) firstInvalid = name;
+      });
+
+      if (firstInvalid) {
+        form.querySelector(`[name="${firstInvalid}"]`)?.focus();
+        return;
+      }
+
+      const lines = [
+        'Salam, saya ingin dapatkan semakan tapak dan sebut harga gabion wall.',
+        '',
+        `Nama: ${get('nama')}`,
+        `Telefon: ${get('telefon')}`,
+        `Lokasi tapak: ${get('lokasi')}`,
+      ];
+
+      // Only sent when the visitor actually chose one — never a default guess.
+      const jenis = get('jenis');
+      if (jenis) lines.push(`Jenis masalah: ${jenis}`);
+
+      const detail = get('butiran');
+      if (detail) lines.push(`Butiran: ${detail}`);
+
+      window.open(`${waBase}?text=${encodeURIComponent(lines.join('\n'))}`, '_blank', 'noopener');
+    });
+  }
+</script>
+
+<style>
+  .contact {
+    display: grid;
+    gap: var(--space-xl);
+    align-items: start;
+  }
+
+  @media (min-width: 62rem) {
+    .contact {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+      gap: var(--space-2xl);
+    }
+  }
+
+  .contact h2 {
+    font-size: var(--step-3);
+    margin-bottom: var(--space-m);
+  }
+
+  /* --- Channels --- */
+  .channel {
+    display: flex;
+    align-items: center;
+    gap: var(--space-s);
+    padding: var(--space-s) var(--space-m);
+    background: var(--stone-000);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius-m);
+    text-decoration: none;
+    color: inherit;
+    margin-bottom: var(--space-xs);
+    transition:
+      border-color 0.18s var(--ease-out),
+      box-shadow 0.18s var(--ease-out);
+  }
+
+  .channel:hover {
+    border-color: var(--brand-500);
+    box-shadow: var(--shadow-s);
+  }
+
+  /* An unconfirmed channel is shown, but never as something you can tap. */
+  .channel--primary {
+    background: var(--action-100);
+    border-color: var(--action-border);
+  }
+
+  .channel--primary:hover {
+    border-color: var(--action-600);
+  }
+
+  .channel__icon {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: var(--radius-s);
+    background: var(--stone-100);
+    color: var(--graphite-700);
+  }
+
+  .channel--primary .channel__icon {
+    background: var(--action-600);
+    color: #fff;
+  }
+
+  .channel__body {
+    display: grid;
+    gap: 0.125rem;
+    min-width: 0;
+  }
+
+  .channel__label {
+    font-size: var(--step--4);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--graphite-500);
+  }
+
+  .channel__value {
+    font-size: var(--step-0);
+    font-weight: 700;
+    color: var(--graphite-900);
+    overflow-wrap: anywhere;
+  }
+
+  .channel__hint {
+    font-size: var(--step--2);
+    color: var(--graphite-600);
+    line-height: 1.4;
+  }
+
+  .channel :global(.channel__go) {
+    margin-left: auto;
+    flex: none;
+    color: var(--action-700);
+  }
+
+  /* --- Meta list --- */
+  .meta {
+    margin: var(--space-m) 0 0;
+    display: grid;
+    gap: var(--space-s);
+    padding-top: var(--space-m);
+    border-top: 1px solid var(--rule);
+  }
+
+  .meta dt {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: var(--step--4);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--graphite-500);
+  }
+
+  .meta dt :global(svg) {
+    color: var(--brand-600);
+  }
+
+  .meta dd {
+    margin: 0.25rem 0 0 1.625rem;
+    font-size: var(--step--1);
+    color: var(--graphite-700);
+    line-height: 1.5;
+  }
+
+  /* --- Form --- */
+  .contact__form {
+    padding: var(--space-l);
+    background: var(--stone-000);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius-m);
+    box-shadow: var(--shadow-s);
+  }
+
+  @media (max-width: 34rem) {
+    .contact__form {
+      padding: var(--space-m);
+    }
+  }
+
+  .form-intro {
+    margin-bottom: var(--space-m);
+    font-size: var(--step--1);
+    line-height: 1.6;
+    color: var(--graphite-600);
+    max-width: 52ch;
+  }
+
+  .field {
+    margin-bottom: var(--space-m);
+  }
+
+  .field label {
+    display: block;
+    font-size: var(--step--1);
+    font-weight: 700;
+    color: var(--graphite-900);
+    margin-bottom: 0.375rem;
+  }
+
+  .field label span {
+    color: var(--rust-600);
+  }
+
+  .field input,
+  .field select,
+  .field textarea {
+    width: 100%;
+    padding: 0.75rem 0.875rem;
+    min-height: 3rem;
+    background: var(--stone-050);
+    border: 1.5px solid var(--rule-strong);
+    border-radius: var(--radius-s);
+    font-size: var(--step-0);
+    line-height: 1.5;
+    color: var(--graphite-900);
+    transition: border-color 0.15s var(--ease-out), background-color 0.15s var(--ease-out);
+  }
+
+  .field textarea {
+    resize: vertical;
+    min-height: 6rem;
+  }
+
+  .field input::placeholder,
+  .field textarea::placeholder {
+    color: var(--input-placeholder);
+  }
+
+  .field input:hover,
+  .field select:hover,
+  .field textarea:hover {
+    border-color: var(--graphite-500);
+  }
+
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    background: #fff;
+    border-color: var(--brand-600);
+  }
+
+  .field .is-invalid {
+    border-color: var(--rust-600);
+    background: var(--rust-100);
+  }
+
+  .field__error {
+    margin-top: 0.375rem;
+    font-size: var(--step--2);
+    font-weight: 600;
+    color: var(--rust-700);
+  }
+
+  .form-note {
+    margin-top: var(--space-s);
+    font-size: var(--step--3);
+    line-height: 1.5;
+    color: var(--graphite-500);
+  }
+
+  .form-note--warn {
+    color: var(--rust-700);
+    font-weight: 600;
+  }
+
+  /* --- Process --- */
+  .steps {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: var(--space-l);
+  }
+
+  @media (min-width: 44rem) {
+    .steps {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-l) var(--space-2xl);
+    }
+  }
+
+  @media (min-width: 72rem) {
+    .steps {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  .step {
+    display: flex;
+    gap: var(--space-s);
+  }
+
+  .step__num {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background: var(--graphite-900);
+    color: #fff;
+    font-weight: 800;
+    font-size: var(--step-0);
+  }
+
+  .step h3 {
+    font-size: var(--step-1);
+    line-height: 1.3;
+    margin-top: 0.25rem;
+  }
+
+  .step p {
+    margin-top: 0.5rem;
+    color: var(--graphite-600);
+    font-size: var(--step--1);
+    line-height: 1.6;
+  }
+
+  /* --- Map --- */
+  .map {
+    aspect-ratio: 16 / 7;
+    border-radius: var(--radius-m);
+    overflow: hidden;
+    border: 1px solid var(--rule);
+  }
+
+  .map iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+</style>

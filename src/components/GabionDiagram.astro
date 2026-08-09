@@ -1,0 +1,674 @@
+---
+/**
+ * The interactive cross-section — the one place on the site where the product
+ * explains itself.
+ *
+ * A drawn section of a stepped gabion wall. On first scroll into view the cages
+ * fill with stone and the water arrows draw through the wall face. Four hotspots
+ * then let the visitor take the drawing apart: the mesh cage, the stone fill,
+ * the water path, and the retained slope. Selecting one dims the rest and puts
+ * its explanation in plain Malay beside the drawing.
+ *
+ * Constraints this component honours:
+ *  - Hotspots are real <button>s: keyboard reachable, 44px touch targets.
+ *  - The readout is aria-live, so a screen reader hears the change.
+ *  - Without JavaScript the finished drawing renders and every annotation is
+ *    still present as visible text.
+ *  - prefers-reduced-motion renders the completed state immediately.
+ */
+
+/** Deterministic RNG so every build produces the identical drawing. */
+function mulberry32(seed: number) {
+  return function () {
+    seed |= 0;
+    seed = (seed + 0x6d2b79f5) | 0;
+    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+const rand = mulberry32(20260802);
+
+/** Stepped courses of cages, battered back into the retained soil. */
+const tiers = [
+  { x: 176, y: 268, w: 148, h: 62, cells: 3 },
+  { x: 202, y: 206, w: 122, h: 62, cells: 3 },
+  { x: 228, y: 144, w: 96, h: 62, cells: 2 },
+];
+
+type Stone = { points: string; fill: string; delay: number };
+
+const stoneFills = ['#8f8b7d', '#a29d8d', '#7b776b', '#b3ae9d', '#6f6c62'];
+const stones: Stone[] = [];
+
+tiers.forEach((tier, tierIndex) => {
+  const cols = Math.round(tier.w / 15);
+  const rows = Math.round(tier.h / 15);
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      const cx = tier.x + ((c + 0.5) * tier.w) / cols + (rand() - 0.5) * 7;
+      const cy = tier.y + ((r + 0.5) * tier.h) / rows + (rand() - 0.5) * 7;
+      const base = 4.6 + rand() * 3.2;
+      const pts: string[] = [];
+      for (let a = 0; a < 6; a++) {
+        const ang = (a / 6) * Math.PI * 2 + rand() * 0.35;
+        const rad = base * (0.68 + rand() * 0.5);
+        pts.push(`${(cx + Math.cos(ang) * rad).toFixed(1)},${(cy + Math.sin(ang) * rad).toFixed(1)}`);
+      }
+      stones.push({
+        points: pts.join(' '),
+        fill: stoneFills[Math.floor(rand() * stoneFills.length)],
+        delay: tierIndex * 0.13 + (r / rows) * 0.08 + (c / cols) * 0.16 + rand() * 0.03,
+      });
+    }
+  }
+});
+
+/** Vertical mesh divisions between individual cages. */
+const meshLines: { x1: number; y1: number; x2: number; y2: number }[] = [];
+tiers.forEach((tier) => {
+  for (let i = 1; i < tier.cells; i++) {
+    const x = tier.x + (i * tier.w) / tier.cells;
+    meshLines.push({ x1: x, y1: tier.y, x2: x, y2: tier.y + tier.h });
+  }
+  meshLines.push({
+    x1: tier.x,
+    y1: tier.y + tier.h / 2,
+    x2: tier.x + tier.w,
+    y2: tier.y + tier.h / 2,
+  });
+});
+
+/**
+ * The four explorable parts. Positions are percentages of the 640×400 viewBox,
+ * so the hotspots track the drawing at every width.
+ */
+const hotspots = [
+  {
+    key: 'cage',
+    x: 45.3,
+    y: 43.75,
+    label: 'Sangkar mesh',
+    body: 'Sangkar besi bergalvani yang membentuk rangka struktur. Setiap sangkar diikat dengan sangkar bersebelahan supaya seluruh dinding bergerak sebagai satu unit, bukan sebagai kotak berasingan.',
+  },
+  {
+    key: 'stone',
+    x: 37.5,
+    y: 75,
+    label: 'Isian batu',
+    body: 'Batu bergred disusun rapat di dalam sangkar. Berat batu inilah yang menahan tanah — bukan simen. Rongga kecil antara batu sengaja dibiarkan supaya air boleh lalu.',
+  },
+  {
+    key: 'flow',
+    x: 18,
+    y: 74,
+    label: 'Aliran air',
+    body: 'Air dari dalam tanah melalui rongga antara batu dan keluar di muka dinding. Tekanan air tidak berkumpul di belakang struktur seperti yang berlaku pada tembok konkrit tertutup.',
+  },
+  {
+    key: 'slope',
+    x: 78.1,
+    y: 50,
+    label: 'Tanah yang ditahan',
+    body: 'Cerun atau tebing di belakang dinding. Setiap tingkat ditarik sedikit ke belakang mengikut ketinggian, supaya beban tanah diagihkan dan tidak tertumpu pada satu titik.',
+  },
+];
+---
+
+<figure class="diagram" data-diagram>
+  <div class="diagram__stage">
+    <svg
+      viewBox="0 0 640 400"
+      role="img"
+      aria-labelledby="rajah-tajuk rajah-huraian"
+      class="diagram__svg"
+    >
+      <title id="rajah-tajuk">Keratan rentas gabion wall</title>
+      <desc id="rajah-huraian">
+        Rajah menunjukkan dinding gabion bertingkat yang dibina di kaki cerun.
+        Setiap sangkar mesh diisi dengan batu bergred. Anak panah menunjukkan air
+        dari dalam tanah mengalir keluar menembusi dinding, dan bukannya terkumpul
+        di belakangnya.
+      </desc>
+
+      <defs>
+        <pattern
+          id="hatch-tanah"
+          width="14"
+          height="14"
+          patternUnits="userSpaceOnUse"
+          patternTransform="rotate(45)"
+        >
+          <line x1="0" y1="0" x2="0" y2="14" stroke="#8a7c5c" stroke-width="1.1" opacity="0.45"
+          ></line>
+        </pattern>
+      </defs>
+
+      <!-- Retained ground, its vegetated surface and soil hatch -->
+      <g class="part part-slope">
+        <path
+          d="M324 330 L324 158 C400 138 470 128 640 118 L640 330 Z"
+          fill="#6f6248"
+          opacity="0.28"></path>
+        <path
+          d="M324 158 C400 138 470 128 640 118"
+          fill="none"
+          stroke="#4a5535"
+          stroke-width="3"
+          stroke-linecap="round"></path>
+        <g stroke="#5b6842" stroke-width="2.2" stroke-linecap="round" opacity="0.85">
+          <path d="M356 150v-11"></path>
+          <path d="M392 144v-11"></path>
+          <path d="M430 139v-11"></path>
+          <path d="M470 134v-11"></path>
+          <path d="M512 130v-11"></path>
+          <path d="M556 126v-11"></path>
+          <path d="M600 122v-11"></path>
+        </g>
+        <path
+          d="M324 330 L324 158 C400 138 470 128 640 118 L640 330 Z"
+          fill="url(#hatch-tanah)"></path>
+      </g>
+
+      <!-- Foundation datum: always legible, never dimmed -->
+      <path d="M0 330H640" stroke="#3f4642" stroke-width="3" stroke-linecap="round"></path>
+      <g stroke="#545b55" stroke-width="1.4" stroke-linecap="round" opacity="0.55">
+        {
+          Array.from({ length: 24 }, (_, i) => (
+            <path d={`M${4 + i * 27} 330 L${-8 + i * 27} 346`} />
+          ))
+        }
+      </g>
+
+      <!-- Cage bodies -->
+      <g class="part part-cage part-cage--body">
+        {
+          tiers.map((t) => (
+            <rect
+              x={t.x}
+              y={t.y}
+              width={t.w}
+              height={t.h}
+              fill="#e7e4d9"
+              stroke="#2e3330"
+              stroke-width="2.4"
+              rx="1.5"
+            />
+          ))
+        }
+      </g>
+
+      <!-- Stone fill -->
+      <g class="part part-stone stones">
+        {
+          stones.map((s) => (
+            <polygon
+              class="stone"
+              points={s.points}
+              fill={s.fill}
+              style={`--d: ${s.delay.toFixed(2)}s`}
+            />
+          ))
+        }
+      </g>
+
+      <!-- Mesh drawn over the fill, as it is in life -->
+      <g class="part part-cage mesh" stroke="#2e3330" stroke-width="1.5" opacity="0.75">
+        {meshLines.map((l) => <line x1={l.x1} y1={l.y1} x2={l.x2} y2={l.y2} />)}
+        {
+          tiers.map((t) => (
+            <rect
+              x={t.x}
+              y={t.y}
+              width={t.w}
+              height={t.h}
+              fill="none"
+              stroke="#2e3330"
+              stroke-width="2"
+              rx="1.5"
+            />
+          ))
+        }
+      </g>
+
+      <!-- Water passing through the wall rather than building behind it -->
+      <g class="part part-flow">
+        <g stroke="var(--diagram-water)" stroke-width="2.6" stroke-linecap="round" fill="none">
+          <path class="flow__line" style="--fd: 0.62s" d="M474 192 L360 206 L180 226"></path>
+          <path class="flow__line" style="--fd: 0.72s" d="M474 246 L360 260 L154 286"></path>
+          <path class="flow__line" style="--fd: 0.82s" d="M474 300 L360 306 L142 316"></path>
+        </g>
+        <g fill="var(--diagram-water)">
+          <polygon class="flow__head" style="--fd: 1.2s" points="164,227 181,219 181,234"></polygon>
+          <polygon class="flow__head" style="--fd: 1.3s" points="138,287 155,279 155,294"></polygon>
+          <polygon class="flow__head" style="--fd: 1.4s" points="126,317 143,309 143,324"></polygon>
+        </g>
+      </g>
+
+      <!-- Static labels: hidden while a hotspot is open, to avoid double-labelling -->
+      <g class="labels">
+        <line x1="500" y1="126" x2="500" y2="92" stroke="#545b55" stroke-width="1.4"></line>
+        <text x="500" y="82" class="label" text-anchor="middle">Cerun / tanah yang ditahan</text>
+
+        <line x1="276" y1="142" x2="276" y2="108" stroke="#545b55" stroke-width="1.4"></line>
+        <text x="276" y="98" class="label" text-anchor="middle">Sangkar mesh diisi batu</text>
+
+        <line x1="150" y1="322" x2="150" y2="356" stroke="var(--diagram-water)" stroke-width="1.4"
+        ></line>
+        <text x="150" y="372" class="label label--flow" text-anchor="middle">Air mengalir keluar</text>
+
+        <text x="636" y="372" class="label" text-anchor="end">Aras tapak sedia ada</text>
+      </g>
+    </svg>
+
+    <!-- Hotspots sit above the drawing as real buttons -->
+    <div class="spots" data-spots>
+      {
+        hotspots.map((h) => (
+          <button
+            type="button"
+            class="spot"
+            data-spot={h.key}
+            style={`left: ${h.x}%; top: ${h.y}%;`}
+            aria-pressed="false"
+            aria-controls="rajah-readout"
+          >
+            <span class="spot__dot" aria-hidden="true" />
+            <span class="sr-only">Terangkan: {h.label}</span>
+          </button>
+        ))
+      }
+    </div>
+  </div>
+
+  <figcaption class="readout" id="rajah-readout" aria-live="polite" data-readout>
+    <div class="readout__item" data-for="default">
+      <p class="readout__hint">
+        <span class="readout__dot" aria-hidden="true"></span>
+        Tekan mana-mana titik merah untuk melihat fungsi bahagian tersebut.
+      </p>
+      <p class="readout__body">
+        Air dari dalam tanah mengalir terus melalui celah batu dan keluar di muka
+        dinding. Tekanan air tidak berkumpul di belakang struktur seperti yang
+        berlaku pada tembok konkrit tertutup.
+      </p>
+    </div>
+    {/*
+      Deliberately NOT hidden in the markup. With JavaScript unavailable every
+      annotation stays readable as a plain stacked list; the script hides the
+      inactive ones on init. Never add `hidden` here.
+    */}
+    {
+      hotspots.map((h) => (
+        <div class="readout__item" data-for={h.key}>
+          <p class="readout__title">{h.label}</p>
+          <p class="readout__body">{h.body}</p>
+        </div>
+      ))
+    }
+  </figcaption>
+</figure>
+
+<script is:inline>
+  // Pre-animation state, set before first paint and only when motion is welcome.
+  (function () {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var el = document.currentScript && document.currentScript.previousElementSibling;
+    if (el && el.hasAttribute('data-diagram')) el.setAttribute('data-animate', '');
+  })();
+</script>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-diagram]').forEach((fig) => {
+    /* --- The fill animation: the one authored moment --- */
+    if (fig.hasAttribute('data-animate')) {
+      const reveal = () => fig.classList.add('is-visible');
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                reveal();
+                io.disconnect();
+              }
+            });
+          },
+          { threshold: 0.25 }
+        );
+        io.observe(fig);
+      } else {
+        reveal();
+      }
+      // The drawing is the explanation, so it must never stay blank.
+      window.setTimeout(reveal, 2500);
+      window.addEventListener('beforeprint', reveal);
+    }
+
+    /* --- Exploration --- */
+    const spots = fig.querySelectorAll<HTMLButtonElement>('[data-spot]');
+    const items = fig.querySelectorAll<HTMLElement>('[data-for]');
+    if (!spots.length) return;
+
+    // The annotations ship visible so they survive without JavaScript; collapse
+    // them to the default only once we know we can drive the hotspots.
+    fig.classList.add('is-interactive');
+
+    const select = (key: string | null) => {
+      if (key) fig.setAttribute('data-active', key);
+      else fig.removeAttribute('data-active');
+
+      spots.forEach((s) => s.setAttribute('aria-pressed', String(s.dataset.spot === key)));
+      items.forEach((i) => {
+        i.hidden = i.dataset.for !== (key ?? 'default');
+      });
+    };
+
+    spots.forEach((spot) => {
+      spot.addEventListener('click', () => {
+        // Tapping the open hotspot again closes it.
+        const isOpen = fig.getAttribute('data-active') === spot.dataset.spot;
+        select(isOpen ? null : (spot.dataset.spot ?? null));
+      });
+    });
+
+    select(null);
+
+    fig.addEventListener('keydown', (event) => {
+      if ((event as KeyboardEvent).key === 'Escape' && fig.hasAttribute('data-active')) {
+        select(null);
+        (fig.querySelector('[data-spot][aria-pressed="true"]') as HTMLElement | null)?.focus();
+      }
+    });
+  });
+</script>
+
+<style>
+  .diagram {
+    margin: 0;
+  }
+
+  .diagram__stage {
+    position: relative;
+  }
+
+  .diagram__svg {
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+
+  /* ---------- Exploration ---------- */
+
+  /* Hotspots are controls; they appear only once the script can drive them. */
+  .spots {
+    display: none;
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .diagram.is-interactive .spots {
+    display: block;
+  }
+
+  .readout__hint {
+    display: none;
+  }
+
+  .diagram.is-interactive .readout__hint {
+    display: flex;
+  }
+
+  .spot {
+    position: absolute;
+    /* 44px hit area around a 22px dot — comfortable outdoors, one-handed. */
+    width: 2.75rem;
+    height: 2.75rem;
+    margin: -1.375rem 0 0 -1.375rem;
+    padding: 0;
+    display: grid;
+    place-items: center;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    pointer-events: auto;
+  }
+
+  .spot__dot {
+    width: 1.375rem;
+    height: 1.375rem;
+    border-radius: 50%;
+    background: var(--stone-000);
+    border: 2px solid var(--brand-600);
+    box-shadow: var(--shadow-s);
+    position: relative;
+    transition:
+      background-color 0.18s var(--ease-out),
+      transform 0.18s var(--ease-out);
+  }
+
+  /* The plus, drawn rather than typed. */
+  .spot__dot::before,
+  .spot__dot::after {
+    content: '';
+    position: absolute;
+    inset: 50% 25%;
+    border-top: 2px solid var(--brand-600);
+    transform: translateY(-1px);
+    transition: border-color 0.18s var(--ease-out), transform 0.18s var(--ease-out);
+  }
+
+  .spot__dot::after {
+    transform: translateY(-1px) rotate(90deg);
+  }
+
+  .spot:hover .spot__dot {
+    background: var(--brand-600);
+    transform: scale(1.1);
+  }
+
+  .spot:hover .spot__dot::before,
+  .spot:hover .spot__dot::after {
+    border-color: var(--stone-000);
+  }
+
+  .spot[aria-pressed='true'] .spot__dot {
+    background: var(--brand-600);
+    transform: scale(1.1);
+  }
+
+  .spot[aria-pressed='true'] .spot__dot::before,
+  .spot[aria-pressed='true'] .spot__dot::after {
+    border-color: var(--stone-000);
+  }
+
+  /* Selected: collapse the plus into a minus. */
+  .spot[aria-pressed='true'] .spot__dot::after {
+    transform: translateY(-1px) rotate(0deg);
+  }
+
+  /* ---------- Dimming ---------- */
+
+  .part {
+    transition: opacity 0.25s var(--ease-out);
+  }
+
+  .diagram[data-active] .part {
+    opacity: 0.22;
+  }
+
+  .diagram[data-active='cage'] .part-cage,
+  .diagram[data-active='stone'] .part-stone,
+  .diagram[data-active='stone'] .part-cage--body,
+  .diagram[data-active='flow'] .part-flow,
+  .diagram[data-active='slope'] .part-slope {
+    opacity: 1;
+  }
+
+  /* The static labels would double-label an open annotation. */
+  .labels {
+    transition: opacity 0.25s var(--ease-out);
+  }
+
+  .diagram[data-active] .labels {
+    opacity: 0;
+  }
+
+  .label {
+    font-family: var(--font-sans);
+    /* viewBox units, not UI px — see --diagram-label in global.css. */
+    font-size: var(--diagram-label);
+    font-weight: 650;
+    fill: var(--graphite-600);
+    letter-spacing: 0.01em;
+  }
+
+  .label--flow {
+    fill: var(--diagram-water);
+  }
+
+  /* ---------- Readout ---------- */
+
+  .readout {
+    margin-top: var(--space-m);
+    padding-top: var(--space-s);
+    border-top: 1px solid var(--rule);
+    min-height: 7.5rem;
+    max-width: 58ch;
+  }
+
+  /* Helper text, not a shout. The drawing should keep the eye; the cue is there
+     when the visitor looks for it. Sentence case, no tracking, muted graphite.
+     Runs the full readout width, with a rule beneath so the cue and the
+     explanation below it read as two zones rather than two stacked paragraphs. */
+  .readout__hint {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    width: 100%;
+    font-size: var(--step--1);
+    font-weight: 400;
+    line-height: 1.55;
+    color: var(--graphite-600);
+    padding-bottom: 0.625rem;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 0.875rem;
+  }
+
+  .readout__dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    margin-top: 0.45rem;
+    border-radius: 50%;
+    background: var(--brand-600);
+    flex: none;
+  }
+
+  .readout__title {
+    font-family: var(--font-display);
+    font-size: var(--step-1);
+    font-weight: 700;
+    font-stretch: 92%;
+    color: var(--graphite-900);
+    margin-bottom: 0.375rem;
+  }
+
+  .readout__body {
+    font-size: var(--step--1);
+    line-height: 1.6;
+    color: var(--graphite-600);
+  }
+
+  /* Label text is sized in viewBox units, so it shrinks with the drawing. Below
+     this width it lands around 8px — unreadable. The hotspots and the readout
+     carry the same information, and without JavaScript every annotation is
+     already stacked as plain text underneath, so the labels are dropped rather
+     than scaled into a collision. */
+  @media (max-width: 46rem) {
+    .labels {
+      display: none;
+    }
+
+    .spot__dot {
+      width: 1.125rem;
+      height: 1.125rem;
+    }
+
+    .readout {
+      min-height: 9.5rem;
+    }
+  }
+
+  /* ---------- The fill animation ---------- */
+
+  .diagram[data-animate] .stone {
+    opacity: 0;
+    transform: translateY(-16px) scale(0.72);
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  .diagram[data-animate] .flow__line {
+    stroke-dasharray: 340;
+    stroke-dashoffset: 340;
+  }
+
+  .diagram[data-animate] .flow__head {
+    opacity: 0;
+  }
+
+  .diagram[data-animate].is-visible .stone {
+    animation: stone-settle 0.62s var(--ease-out) both;
+    animation-delay: var(--d);
+  }
+
+  .diagram[data-animate].is-visible .flow__line {
+    animation: flow-draw 0.85s var(--ease-out) both;
+    animation-delay: var(--fd);
+  }
+
+  .diagram[data-animate].is-visible .flow__head {
+    animation: head-in 0.4s var(--ease-out) both;
+    animation-delay: var(--fd);
+  }
+
+  @keyframes stone-settle {
+    from {
+      opacity: 0;
+      transform: translateY(-16px) scale(0.72);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes flow-draw {
+    from {
+      stroke-dashoffset: 340;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @keyframes head-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .part,
+    .labels,
+    .spot__dot,
+    .spot__dot::before,
+    .spot__dot::after {
+      transition: none;
+    }
+  }
+</style>

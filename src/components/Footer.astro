@@ -1,0 +1,262 @@
+---
+import { Image } from 'astro:assets';
+import Icon from './Icon.astro';
+/* Monogram only — see the note in Header.astro. */
+import logo from '../assets/logo-gubah-bina-mark.png';
+import { site, nav, waLink } from '../config/site';
+import { services } from '../data/content';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer field-graphite">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="brand">
+          <Image
+            src={logo}
+            alt={site.name}
+            class="brand__logo"
+            width={52}
+            height={45}
+            densities={[1, 2, 3]}
+          />
+          <span class="brand__text">
+            <span>Gabion Wall</span>
+            <span>Specialist</span>
+          </span>
+        </a>
+        <p class="footer-brand__line">{site.tagline}</p>
+        <p class="footer-brand__area">
+          <Icon name="pin" size={18} />
+          <span>Kawasan perkhidmatan: {site.serviceArea}</span>
+        </p>
+        <a
+          class="btn footer-cta"
+          href={waLink()}
+          target="_blank"
+          rel="noopener"
+        >
+          <Icon name="whatsapp" size={20} />
+          WhatsApp Sekarang
+        </a>
+      </div>
+
+      <nav class="footer-col" aria-label="Pautan halaman">
+        <h2 class="footer-col__title">Halaman</h2>
+        <ul>
+          {nav.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+        </ul>
+      </nav>
+
+      <div class="footer-col">
+        <h2 class="footer-col__title">Perkhidmatan</h2>
+        <ul>
+          {
+            services.map((s) => (
+              <li>
+                <a href={`/perkhidmatan/#${s.slug}`}>{s.title}</a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h2 class="footer-col__title">Hubungi</h2>
+        <ul class="footer-contact">
+          <li>
+            <Icon name="whatsapp" size={18} />
+            <a href={waLink()} target="_blank" rel="noopener">
+              {site.contact.whatsappDisplay}
+            </a>
+          </li>
+          <li>
+            <Icon name="phone" size={18} />
+            <a href={`tel:${site.contact.phoneNumber}`}>{site.contact.phoneDisplay}</a>
+          </li>
+          {
+            site.contact.email && (
+              <li>
+                <Icon name="mail" size={18} />
+                <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a>
+              </li>
+            )
+          }
+          <li>
+            <Icon name="facebook" size={18} />
+            <a href={site.contact.facebook} target="_blank" rel="noopener">Facebook</a>
+          </li>
+          {
+            site.contact.hours && (
+              <li>
+                <Icon name="clock" size={18} />
+                <span>{site.contact.hours}</span>
+              </li>
+            )
+          }
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-base">
+      <p>© {year} {site.name}. Hak cipta terpelihara.</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    padding-block: var(--space-3xl) var(--space-l);
+    /* Clear the floating WhatsApp action on mobile. */
+    padding-bottom: calc(var(--space-l) + 4.5rem);
+  }
+
+  @media (min-width: 64rem) {
+    .site-footer {
+      padding-bottom: var(--space-l);
+    }
+  }
+
+  .footer-grid {
+    display: grid;
+    gap: var(--space-xl);
+  }
+
+  @media (min-width: 48rem) {
+    .footer-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .footer-brand {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .footer-grid {
+      grid-template-columns: 1.6fr 1fr 1fr 1.2fr;
+      gap: var(--space-l);
+    }
+    .footer-brand {
+      grid-column: auto;
+      padding-right: var(--space-l);
+    }
+  }
+
+  /* --- Brand block --- */
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    text-decoration: none;
+    color: #fff;
+  }
+
+  /* The mark reads directly on graphite — its red clears 4:1 and its grey
+     5.5:1 — so it needs no white plate behind it. */
+  .brand__logo {
+    height: 2.8125rem;
+    width: auto;
+    flex: none;
+  }
+
+  .brand__text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    padding-left: 0.75rem;
+    border-left: 1px solid rgba(255, 255, 255, 0.22);
+    font-size: var(--step--5);
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--stone-200);
+    white-space: nowrap;
+  }
+
+  .footer-brand__line {
+    margin-top: var(--space-s);
+    color: var(--stone-200);
+    font-size: var(--step--1);
+    line-height: 1.55;
+    max-width: 34ch;
+  }
+
+  .footer-brand__area {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: var(--space-s);
+    font-size: var(--step--1);
+    color: var(--stone-200);
+  }
+
+  .footer-brand__area :global(svg) {
+    flex: none;
+    color: var(--brand-300);
+  }
+
+  .footer-cta {
+    margin-top: var(--space-m);
+  }
+
+  /* --- Link columns --- */
+  .footer-col__title {
+    font-size: var(--step--3);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-stretch: 100%;
+    color: var(--brand-300);
+    margin-bottom: var(--space-s);
+  }
+
+  .footer-col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .footer-col a,
+  .footer-contact span {
+    color: var(--stone-200);
+    font-size: var(--step--1);
+    text-decoration: none;
+    line-height: 1.5;
+  }
+
+  .footer-col a:hover {
+    color: #fff;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .footer-contact li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.625rem;
+  }
+
+  .footer-contact :global(svg) {
+    flex: none;
+    margin-top: 0.125rem;
+    color: var(--brand-300);
+  }
+
+  /* --- Base bar --- */
+  .footer-base {
+    margin-top: var(--space-2xl);
+    padding-top: var(--space-m);
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--space-xs) var(--space-m);
+    font-size: var(--step--3);
+    color: var(--stone-300);
+  }
+</style>

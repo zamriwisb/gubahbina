@@ -1,0 +1,115 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+/**
+ * A photograph rendered into a fixed-ratio slot.
+ *
+ * The slot owns the aspect ratio and the crop; the photograph fills it via
+ * object-fit, so a page can lay out its grid without knowing the dimensions of
+ * whatever the client supplied.
+ */
+
+interface Props {
+  /** The photograph. */
+  src: ImageMetadata;
+  /** Alt text. Describe what is visible, not what the section is about. */
+  alt: string;
+  /** Widths the browser may pick from, passed through to <Image>. */
+  widths?: number[];
+  /** `sizes` attribute — how wide the slot renders at each breakpoint. */
+  sizes?: string;
+  /** Skip lazy loading for images above the fold, e.g. the hero. */
+  eager?: boolean;
+  /**
+   * Which part of the photo to keep when the slot crops it. Site photos put
+   * the structure low in the frame, so a wide slot cropping a 4:3 source
+   * needs to favour the lower half or the wall drops out of view.
+   */
+  focus?: string;
+  /** CSS aspect ratio, e.g. "16 / 9". */
+  ratio?: string;
+  /**
+   * WebP quality. The default suits these photographs: gabion faces are packed
+   * with fine stone edges, the exact high-frequency detail low quality smears
+   * into mush, and a wall that reads as a grey blur defeats the point of
+   * showing the work at all.
+   */
+  quality?: number;
+  class?: string;
+}
+
+const {
+  src,
+  alt,
+  widths,
+  sizes,
+  eager = false,
+  focus = '50% 50%',
+  ratio = '16 / 9',
+  quality = 82,
+  class: className,
+} = Astro.props;
+
+/**
+ * Sources here span a wide range: phone photos barely wider than the largest
+ * size we ask for, alongside 2752px files far above it. Clamping each
+ * candidate to the source width handles both — a narrow source becomes the
+ * ceiling instead of being upscaled into a file heavier than the original,
+ * and a wide source is simply never asked for at full size, which no slot on
+ * the page is large enough to need.
+ */
+const candidates = widths ?? [640, 960, 1280, 1600];
+const renderWidths = [...new Set(candidates.map((w) => Math.min(w, src.width)))].sort(
+  (a, b) => a - b
+);
+
+/**
+ * Given `widths` and no `width`, Astro builds the fallback `src` at the
+ * source's full resolution — a 2752px, ~1MB file emitted for every photo that
+ * no browser reading `srcset` will ever request. Pinning the fallback to the
+ * largest width we actually offer reuses a variant already in the srcset, so
+ * nothing extra is written at all.
+ */
+const fallbackWidth = renderWidths.at(-1);
+---
+
+<div class:list={['slot', className]} style={`--slot-ratio: ${ratio}; --slot-focus: ${focus};`}>
+  <Image
+    src={src}
+    alt={alt}
+    width={fallbackWidth}
+    widths={renderWidths}
+    sizes={sizes ?? '100vw'}
+    quality={quality}
+    loading={eager ? 'eager' : 'lazy'}
+    fetchpriority={eager ? 'high' : 'auto'}
+    decoding={eager ? 'sync' : 'async'}
+    class="slot__img"
+  />
+</div>
+
+<style>
+  .slot {
+    position: relative;
+    aspect-ratio: var(--slot-ratio);
+    overflow: hidden;
+    border-radius: var(--radius-m);
+    background-color: var(--stone-200);
+  }
+
+  /* Pinned to the slot's edges rather than sized at height:100%. A percentage
+     height here resolves against the grid area and silently falls back to the
+     photo's own ratio, which lets the image overflow and be clipped by an
+     ancestor instead of cropped by object-fit — object-position then does
+     nothing. Absolute inset:0 makes the box exactly the slot, always. */
+  .slot__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: var(--slot-focus, 50% 50%);
+    display: block;
+  }
+</style>

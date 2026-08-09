@@ -1,0 +1,90 @@
+---
+import Icon from './Icon.astro';
+
+import type { FaqItem } from '../types';
+
+interface Props {
+  items: FaqItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="faq">
+  {
+    items.map((item) => (
+      <details class="faq__item">
+        <summary class="faq__q">
+          <span>{item.q}</span>
+          <Icon name="chevron-down" size={22} class="faq__chev" />
+        </summary>
+        <div class="faq__a">
+          {item.a.map((p) => (
+            <p>{p}</p>
+          ))}
+        </div>
+      </details>
+    ))
+  }
+</div>
+
+<style>
+  .faq {
+    border-top: 1px solid var(--rule);
+  }
+
+  .faq__item {
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .faq__q {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-m);
+    padding: var(--space-m) 0;
+    cursor: pointer;
+    list-style: none;
+    font-size: var(--step-1);
+    font-weight: 700;
+    line-height: 1.35;
+    color: var(--graphite-900);
+    transition: color 0.15s var(--ease-out);
+  }
+
+  .faq__q::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq__q:hover {
+    color: var(--brand-700);
+  }
+
+  /* Rendered by <Icon>, so outside this component's style scope. */
+  .faq__q :global(.faq__chev) {
+    flex: none;
+    margin-top: 0.125rem;
+    color: var(--brand-700);
+    transition: transform 0.22s var(--ease-out);
+  }
+
+  .faq__item[open] .faq__q :global(.faq__chev) {
+    transform: rotate(180deg);
+  }
+
+  .faq__a {
+    padding-bottom: var(--space-m);
+    max-width: var(--measure);
+    color: var(--graphite-700);
+  }
+
+  .faq__a p + p {
+    margin-top: var(--space-s);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .faq__q :global(.faq__chev) {
+      transition: none;
+    }
+  }
+</style>

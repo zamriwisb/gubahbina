@@ -1,0 +1,70 @@
+---
+import { nav } from '../config/site';
+
+interface Props {
+  title: string;
+  lede: string;
+  /** Current path, used to render the breadcrumb trail. */
+  path: string;
+}
+
+const { title, lede, path } = Astro.props;
+const current = nav.find((n) => n.href === path);
+---
+
+<section class="page-hero field-graphite">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Laluan halaman">
+      <ol>
+        <li><a href="/">Utama</a></li>
+        <li aria-current="page">{current?.label ?? title}</li>
+      </ol>
+    </nav>
+    <h1>{title}</h1>
+    <p class="lede">{lede}</p>
+  </div>
+</section>
+
+<style>
+  .page-hero {
+    padding-block: var(--space-2xl) var(--space-2xl);
+  }
+
+  .crumbs ol {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0;
+    margin: 0 0 var(--space-m);
+    font-size: var(--step--2);
+    color: var(--stone-300);
+  }
+
+  .crumbs li + li::before {
+    content: '/';
+    margin-right: 0.5rem;
+    color: var(--stone-300);
+  }
+
+  .crumbs a {
+    color: var(--stone-200);
+    text-decoration: none;
+  }
+
+  .crumbs a:hover {
+    color: #fff;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .page-hero h1 {
+    max-width: 20ch;
+  }
+
+  .page-hero .lede {
+    margin-top: var(--space-m);
+    max-width: 58ch;
+  }
+</style>

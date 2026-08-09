@@ -1,0 +1,207 @@
+---
+import '../styles/global.css';
+import bricolageWoff2 from '@fontsource-variable/bricolage-grotesque/files/bricolage-grotesque-latin-wdth-normal.woff2?url';
+import archivoWoff2 from '@fontsource-variable/archivo/files/archivo-latin-wdth-normal.woff2?url';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppFab from '../components/WhatsAppFab.astro';
+import { site } from '../config/site';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Path without domain, e.g. "/perkhidmatan/". Used for the canonical URL. */
+  path: string;
+  /** Optional extra schema.org block for this page, e.g. FAQPage. */
+  jsonLd?: Record<string, unknown>;
+}
+
+const { title, description, path, jsonLd } = Astro.props;
+const canonical = new URL(path, Astro.site ?? site.url).toString();
+---
+
+<!doctype html>
+<html lang="ms-MY">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ms_MY" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content={site.name} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- The condensed uppercase H1 is the whole first impression; on 3G a
+         swap-in reflow lands right where the visitor is reading. Display first
+         — it paints above the fold before body copy does. -->
+    <link
+      rel="preload"
+      href={bricolageWoff2}
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      href={archivoWoff2}
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+
+    <meta name="theme-color" content="#1c1f1d" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+    <!-- Arms the section-reveal pre-state before first paint, so a section
+         never flashes visible and then hides. Runs only when motion is
+         welcome; with no JS or reduced motion the attribute is never set and
+         the CSS pre-state never applies. -->
+    <script is:inline>
+      (function () {
+        try {
+          if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            document.documentElement.setAttribute('data-reveal-armed', '');
+          }
+        } catch (e) {}
+      })();
+    </script>
+
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'LocalBusiness',
+        name: site.name,
+        alternateName: site.descriptor,
+        description: site.tagline,
+        url: site.url,
+        telephone: site.contact.phoneNumber,
+        address: {
+          '@type': 'PostalAddress',
+          streetAddress: 'Lot 2091, Kampung Padang Kota',
+          addressLocality: 'Kota Bharu',
+          addressRegion: 'Kelantan',
+          postalCode: '15100',
+          addressCountry: 'MY',
+        },
+        sameAs: [site.contact.facebook],
+        areaServed: { '@type': 'Country', name: 'Malaysia' },
+        knowsAbout: [
+          'Pemasangan gabion wall',
+          'Kawalan hakisan',
+          'Perlindungan tebing',
+          'Pengukuhan cerun',
+          'Tembok penahan batu',
+        ],
+      })}
+    />
+
+    {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+  </head>
+
+  <body>
+    <!--
+    THESIS: A Malaysian contractor site that explains ground failure instead of
+      asserting competence. Began as the category standard by user choice; the
+      homepage was then re-composed at the user's request because the stacked-band
+      canon read as separate slabs. It now refuses the band-stack: fewer, longer
+      colour runs, layers overlapping every field change, deliberately uneven
+      density. Interior pages keep more of the convention.
+    OWN-WORLD: Wet-slate graphite and the client's brand red #e14024 as committed
+      grounds that own whole regions; mineral stone off-white for reading; sand rules;
+      oxide rust reserved for erosion and damage; WhatsApp green reserved solely for
+      the WhatsApp action. Bricolage Grotesque condensed uppercase for headings over
+      Archivo for body. Authored 1.75-stroke SVG icons. No gradients, no glass, no
+      eyebrows. Olive was retired when the brand colour arrived — it fought the red.
+    STORY: The visitor recognises their own failing ground, takes the cross-section
+      apart to learn why a gabion drains, sees the services and the honest reasons to
+      choose, and messages WhatsApp. The page's one interaction and its compositional
+      peak are the same element.
+    FIRST VIEWPORT: Full-bleed marked photo slot under a flat graphite scrim; uppercase
+      condensed H1, one supporting line, green WhatsApp button beside an outlined
+      site-inspection button; sticky header above. The graphite continues unbroken into
+      the problem section rather than ending at a band edge.
+    FORM: Canon (the category standard) taken by the user over assigned direction 3
+      of 7, "The Section Sheet" — then re-composed for continuous flow at the user's
+      request. Seed key c2a06cab.
+    FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md
+    -->
+    <a class="skip-link" href="#kandungan">Terus ke kandungan utama</a>
+    <Header />
+    <main id="kandungan">
+      <slot />
+    </main>
+    <Footer />
+    <WhatsAppFab />
+
+    <script is:inline>
+      (function () {
+        var armed = document.documentElement.hasAttribute('data-reveal-armed');
+        if (!armed) return;
+
+        var targets = Array.prototype.slice.call(
+          document.querySelectorAll('[data-reveal]')
+        );
+        if (!targets.length) return;
+
+        function reveal(el) {
+          el.classList.add('is-revealed');
+        }
+        function revealAll() {
+          targets.forEach(reveal);
+        }
+
+        /* Failsafes first, so a section can never be stranded invisible.
+           Print forces the finished state outright. The 2.5s backstop must NOT
+           reveal everything — that would fire the whole page before the
+           visitor has scrolled anywhere. It rescues only what is already on
+           screen, which is the single failure it exists to catch: an observer
+           that never fired for a section the visitor can see. */
+        window.addEventListener('beforeprint', revealAll);
+        var backstop = setTimeout(function () {
+          targets.forEach(function (el) {
+            if (el.getBoundingClientRect().top < window.innerHeight) reveal(el);
+          });
+        }, 2500);
+
+        if (!('IntersectionObserver' in window)) {
+          revealAll();
+          return;
+        }
+
+        /* threshold 0 with a bottom inset, not a ratio: sections here run
+           taller than the viewport, and a tall section can never reach a
+           0.25 ratio. This fires as the section's top crosses the inset. */
+        var io = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              /* Also catch a section the viewport jumped clean over — an
+                 in-page anchor load like /#projek never gives it an
+                 intersecting frame, and it must not stay hidden above us. */
+              var passed = entry.boundingClientRect.bottom < 0;
+              if (!entry.isIntersecting && !passed) return;
+              reveal(entry.target);
+              io.unobserve(entry.target);
+            });
+          },
+          { rootMargin: '0px 0px -12% 0px', threshold: 0 }
+        );
+
+        targets.forEach(function (el) {
+          io.observe(el);
+        });
+
+        window.addEventListener('pagehide', function () {
+          clearTimeout(backstop);
+        });
+      })();
+    </script>
+  </body>
+</html>

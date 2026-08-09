@@ -1,0 +1,973 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import PhotoSlot from '../components/PhotoSlot.astro';
+import GabionDiagram from '../components/GabionDiagram.astro';
+import Faq from '../components/Faq.astro';
+import { site, waLink } from '../config/site';
+import { problems, benefits, services, reasons, faqs, projectSlots } from '../data/content';
+
+const homeFaqs = faqs.slice(0, 5);
+
+import fotoHero from '../assets/kerja/gabion-jengkaut-gubah-bina.jpg';
+
+const heroPhoto = {
+  src: fotoHero,
+  alt: 'Tembok gabion bertingkat memanjang menyusuri laluan air, dengan jengkaut Gubah Bina berada di atas struktur.',
+};
+---
+
+<Base
+  title="Pakar Gabion Wall Malaysia | Pemasangan Gabion Wall, Kawalan Hakisan & Cerun"
+  description="Pakar pemasangan gabion wall untuk kawalan hakisan, tebing, cerun dan tembok penahan. Hubungi kami untuk semakan tapak dan sebut harga."
+  path="/"
+>
+  {/*
+    RUN 1 — one continuous graphite region. The hero and the problem section
+    used to be two stacked bands with an edge between them; they are now one
+    field, so the page opens with a single long movement instead of two slabs.
+  */}
+  <div class="run run--graphite">
+    <section class="hero">
+      <div class="hero__media">
+        <PhotoSlot
+          ratio="16 / 9"
+          src={heroPhoto.src}
+          alt={heroPhoto.alt}
+          eager
+          focus="50% 82%"
+          sizes="100vw"
+          widths={[768, 1280, 1600, 2048]}
+          class="hero__slot"
+        />
+      </div>
+      <div class="hero__scrim"></div>
+
+      <div class="wrap hero__inner">
+        <div class="hero__content">
+          <h1>Pakar Memasang Gabion Wall untuk Kawalan Hakisan, Cerun &amp; Tebing</h1>
+          <p class="hero__lede">
+            Menyediakan pemasangan gabion wall untuk menguatkan struktur tanah,
+            membantu kawalan hakisan, mengurangkan risiko banjir, dan melindungi
+            kawasan cerun atau tebing.
+          </p>
+          <div class="hero__actions">
+            <a
+              class="btn"
+              href={waLink('Salam, saya ingin dapatkan sebut harga untuk pemasangan gabion wall.')}
+              target="_blank"
+              rel="noopener"
+            >
+              <Icon name="whatsapp" size={20} />
+              WhatsApp Sekarang
+            </a>
+            <a class="btn btn--onDark" href="/hubungi/">
+              <Icon name="survey" size={20} />
+              Minta Semakan Tapak
+            </a>
+          </div>
+          <p class="hero__area">
+            <Icon name="pin" size={18} />
+            Menerima kerja di seluruh Malaysia
+          </p>
+        </div>
+      </div>
+    </section>
+
+    {/* Staggered rather than gridded: the right column runs a beat behind. */}
+    <section class="problems-sec" data-reveal>
+      <div class="wrap">
+        <div class="problems-head">
+          <h2>Masalah yang biasa berlaku di tapak</h2>
+          <p class="lede">
+            Jika mana-mana keadaan di bawah serupa dengan apa yang anda lihat di
+            tapak, gabion wall mungkin penyelesaian yang sesuai.
+          </p>
+        </div>
+
+        <ul class="problems">
+          {
+            problems.map((p) => (
+              <li class="problem">
+                <span class="problem__icon">
+                  <Icon name={p.icon} size={30} />
+                </span>
+                <h3>{p.title}</h3>
+                <p>{p.body}</p>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </section>
+  </div>
+
+  {/*
+    THE OVERLAP. A raised white panel pulled up into the graphite so the two
+    fields interlock instead of butting. This is also the page's interactive
+    centrepiece, so the composition and the content peak together.
+  */}
+  <section class="explain-sec" data-reveal>
+    <div class="wrap">
+      <div class="explain lift">
+        <div class="explain__text">
+          <h2>Apa itu gabion wall?</h2>
+          <p class="lede">
+            Struktur sangkar besi atau mesh yang diisi batu untuk menguatkan
+            tanah, melindungi tebing, dan mengawal hakisan.
+          </p>
+          <div class="prose">
+            <p>
+              Sangkar disusun dan diikat bersama membentuk satu struktur. Berat
+              batu di dalamnya yang menahan tanah — bukan simen atau konkrit.
+            </p>
+            <p>
+              Perbezaan paling penting berbanding tembok konkrit tertutup ialah
+              saliran. Air dari dalam tanah boleh melalui celah antara batu dan
+              keluar di muka dinding, jadi tekanan air tidak terkumpul di
+              belakang struktur.
+            </p>
+          </div>
+        </div>
+        <div class="explain__figure">
+          <GabionDiagram />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* Benefits: alternating indent, so the eye moves diagonally down the page. */}
+  <section class="benefits-sec" data-reveal>
+    <div class="wrap">
+      <div class="benefits-head">
+        <h2>Fungsi dan kelebihan</h2>
+        <p class="lede">
+          Apa yang struktur ini lakukan di tapak, dan kenapa ia dipilih untuk
+          kawasan yang bermasalah dengan air dan pergerakan tanah.
+        </p>
+      </div>
+
+      <ul class="benefits">
+        {
+          benefits.map((b) => (
+            <li class="benefit">
+              <span class="benefit__icon">
+                <Icon name={b.icon} size={26} />
+              </span>
+              <div>
+                <h3>{b.title}</h3>
+                <p>{b.body}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  {/* Services: the first entry is a wide feature; the rest fall in beside it. */}
+  <section class="services-sec" data-reveal>
+    <div class="wrap">
+      <div class="services-head">
+        <h2>Perkhidmatan kami</h2>
+        <a href="/perkhidmatan/" class="services-head__link">
+          Semua perkhidmatan
+          <Icon name="arrow-right" size={18} />
+        </a>
+      </div>
+
+      <ul class="services">
+        {
+          services.map((s, i) => (
+            <li class:list={['service', i === 0 && 'service--feature']}>
+              <a href={`/perkhidmatan/#${s.slug}`} class="service__link">
+                <span class="service__icon">
+                  <Icon name={s.icon} size={i === 0 ? 34 : 28} />
+                </span>
+                <h3>{s.title}</h3>
+                <p>{s.summary}</p>
+                <span class="service__more">
+                  Lihat butiran
+                  <Icon name="arrow-right" size={18} />
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  {/* RUN 2 — red. Content sits off-centre rather than in a tidy middle column. */}
+  <section class="reasons-sec" data-reveal>
+    <div class="wrap reasons-grid">
+      <div class="reasons-head">
+        <h2>Kenapa pilih kami</h2>
+        <p class="lede">Perkara yang benar-benar boleh kami tawarkan.</p>
+      </div>
+      <ul class="reasons">
+        {
+          reasons.map((r) => (
+            <li class="reason">
+              <span class="reason__icon">
+                <Icon name={r.icon} size={24} />
+              </span>
+              <div>
+                <h3>{r.title}</h3>
+                <p>{r.body}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  {/* Projects: imagery breaks the column and runs to the viewport edge. */}
+  <section class="projects-sec" id="projek" data-reveal>
+    <div class="wrap">
+      <div class="projects-head">
+        <h2>Projek</h2>
+        <p class="lede">
+          Setiap projek diringkaskan mengikut masalah yang dihadapi di tapak
+          dan penyelesaian gabion yang digunakan.
+        </p>
+      </div>
+    </div>
+
+    <ul class="projects bleed">
+      {
+        projectSlots.map((p) => (
+          <li class="project">
+            <PhotoSlot
+              ratio="3 / 2"
+              src={p.after}
+              alt={p.afterAlt}
+              sizes="(min-width: 64rem) 28rem, calc(100vw - 2rem)"
+              widths={[480, 720, 960, 1280]}
+            />
+            <div class="project__meta">
+              <h3>{p.title}</h3>
+              <dl>
+                <div>
+                  <dt>Masalah</dt>
+                  <dd>{p.problem}</dd>
+                </div>
+                <div>
+                  <dt>Penyelesaian</dt>
+                  <dd>{p.solution}</dd>
+                </div>
+              </dl>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="wrap">
+      <p class="projects-foot">
+        <a href="/projek/" class="btn btn--ghost">
+          Lihat semua projek
+          <Icon name="arrow-right" size={18} />
+        </a>
+      </p>
+    </div>
+  </section>
+
+  {/* FAQ: heading pinned left, questions running down the right. */}
+  <section class="faq-sec" data-reveal>
+    <div class="wrap faq-grid">
+      <div class="faq-aside">
+        <h2>Soalan lazim</h2>
+        <a href="/faq/" class="faq-aside__link">
+          Semua soalan
+          <Icon name="arrow-right" size={18} />
+        </a>
+      </div>
+      <div class="faq-body">
+        <Faq items={homeFaqs} />
+      </div>
+    </div>
+  </section>
+
+  {/* The close: a red panel lifted into the section above it. */}
+  <section class="cta-sec" data-reveal>
+    <div class="wrap">
+      <div class="cta lift">
+        <div class="cta__text">
+          <h2>Ada masalah hakisan atau tebing di tapak anda?</h2>
+          <p class="lede">
+            Hantar gambar keadaan tapak melalui WhatsApp. Kami akan lihat
+            keadaannya dan cadangkan penyelesaian gabion wall yang sesuai, serta
+            aturkan semakan tapak jika perlu.
+          </p>
+        </div>
+        <div class="cta__actions">
+          <a
+            class="btn"
+            href={waLink(
+              'Salam, saya ada masalah di tapak saya dan ingin dapatkan cadangan serta sebut harga gabion wall.'
+            )}
+            target="_blank"
+            rel="noopener"
+          >
+            <Icon name="whatsapp" size={20} />
+            WhatsApp Sekarang
+          </a>
+          <a class="btn btn--onDark" href={`tel:${site.contact.phoneNumber}`}>
+            <Icon name="phone" size={20} />
+            {site.contact.phoneDisplay}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* ==========================================================================
+     RUN 1 — graphite: hero and problems as one continuous field
+     ========================================================================== */
+  .run--graphite {
+    background: var(--graphite-900);
+    color: var(--stone-100);
+    /* Deep foot so the explain panel can be lifted into it. */
+    padding-bottom: clamp(7rem, 5rem + 9vw, 12rem);
+  }
+
+  .hero {
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    align-items: end;
+    min-height: clamp(29rem, 72vh, 40rem);
+    overflow: hidden;
+  }
+
+  .hero__media {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+  }
+
+  .hero__media :global(.hero__slot) {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: auto;
+  }
+
+  .hero__scrim {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--hero-scrim);
+  }
+
+  .hero__inner {
+    padding-block: var(--space-3xl);
+  }
+
+  .hero__content {
+    max-width: 46rem;
+  }
+
+  .hero h1 {
+    color: #fff;
+  }
+
+  @media (min-width: 48rem) {
+    .hero h1 {
+      max-width: 18ch;
+    }
+  }
+
+  .hero__lede {
+    margin-top: var(--space-m);
+    font-size: var(--step-1);
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.92);
+    max-width: 54ch;
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-s);
+    margin-top: var(--space-l);
+  }
+
+  .hero__area {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: var(--space-m);
+    font-size: var(--step--1);
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.86);
+  }
+
+  .hero__area :global(svg) {
+    color: var(--pin-on-dark);
+    flex: none;
+  }
+
+  @media (max-width: 30rem) {
+    .hero__actions .btn {
+      width: 100%;
+    }
+  }
+
+  /* --- Problems: staggered, not gridded --- */
+  .problems-sec {
+    padding-top: var(--space-2xl);
+  }
+
+  .problems-head {
+    max-width: 44ch;
+    margin-bottom: var(--space-xl);
+  }
+
+  .problems-head h2 {
+    color: #fff;
+  }
+
+  .problems-head .lede {
+    margin-top: var(--space-s);
+    color: var(--stone-200);
+  }
+
+  .problems {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: var(--space-xl);
+  }
+
+  @media (min-width: 52rem) {
+    .problems {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: clamp(2rem, 5vw, 5rem);
+      row-gap: 0;
+    }
+
+    /* The right column runs a beat behind the left, so the four items read as
+       a diagonal drift rather than a 2×2 block. */
+    .problem:nth-child(even) {
+      margin-top: 5.5rem;
+    }
+
+    .problem:nth-child(3) {
+      margin-top: -1.5rem;
+    }
+
+    .problem:nth-child(4) {
+      margin-top: 4rem;
+    }
+  }
+
+  .problem {
+    padding-top: var(--space-m);
+    border-top: 1px solid rgba(255, 255, 255, 0.18);
+    max-width: 42ch;
+  }
+
+  .problem__icon {
+    display: block;
+    color: var(--brand-300);
+    margin-bottom: var(--space-s);
+  }
+
+  .problem h3 {
+    color: #fff;
+    font-size: var(--step-2);
+  }
+
+  .problem p {
+    margin-top: 0.625rem;
+    color: var(--stone-200);
+    font-size: var(--step--1);
+    line-height: 1.65;
+  }
+
+  /* ==========================================================================
+     THE OVERLAP — raised panel interlocking graphite and light
+     ========================================================================== */
+  .explain-sec {
+    padding-bottom: var(--space-3xl);
+  }
+
+  .explain {
+    /* Pulled into the graphite foot, but always stopping ~2rem short of it so
+       the last problem card keeps clear air above the panel on narrow screens. */
+    margin-top: clamp(-9rem, -3rem - 6vw, -2.5rem);
+    padding: clamp(1.5rem, 1rem + 3vw, 3.5rem);
+    background: var(--stone-000);
+    border-radius: var(--radius-m);
+    box-shadow: var(--shadow-l);
+    display: grid;
+    gap: var(--space-xl);
+    align-items: center;
+  }
+
+  @media (min-width: 64rem) {
+    .explain {
+      grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
+      gap: clamp(2rem, 4vw, 4rem);
+    }
+  }
+
+  .explain__text .lede {
+    margin-top: var(--space-s);
+  }
+
+  .explain__text .prose {
+    margin-top: var(--space-m);
+    color: var(--graphite-700);
+  }
+
+  /* ==========================================================================
+     BENEFITS — alternating indent
+     ========================================================================== */
+  .benefits-sec {
+    padding-bottom: var(--space-3xl);
+  }
+
+  .benefits-head {
+    max-width: 42ch;
+    margin-bottom: var(--space-xl);
+  }
+
+  .benefits-head .lede {
+    margin-top: var(--space-s);
+  }
+
+  .benefits {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: var(--space-l) clamp(2rem, 5vw, 5rem);
+  }
+
+  @media (min-width: 46rem) {
+    .benefits {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    /* Every second pair steps in, so the column edge is never a straight line. */
+    .benefit:nth-child(4n + 3),
+    .benefit:nth-child(4n + 4) {
+      margin-left: clamp(1rem, 4vw, 3.5rem);
+    }
+  }
+
+  .benefit {
+    display: flex;
+    gap: var(--space-s);
+  }
+
+  .benefit__icon {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: var(--radius-s);
+    background: var(--brand-100);
+    color: var(--brand-700);
+  }
+
+  .benefit h3 {
+    font-size: var(--step-1);
+    line-height: 1.3;
+  }
+
+  .benefit p {
+    margin-top: 0.375rem;
+    color: var(--graphite-600);
+    font-size: var(--step--1);
+    line-height: 1.6;
+    max-width: 42ch;
+  }
+
+  /* ==========================================================================
+     SERVICES — one wide feature, the rest falling in beside it
+     ========================================================================== */
+  .services-sec {
+    padding-bottom: var(--space-3xl);
+  }
+
+  .services-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-s) var(--space-m);
+    margin-bottom: var(--space-xl);
+    padding-bottom: var(--space-s);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .services-head__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-size: var(--step--1);
+    font-weight: 700;
+    color: var(--brand-700);
+    text-decoration: none;
+  }
+
+  .services-head__link:hover {
+    color: var(--graphite-900);
+  }
+
+  .services {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: var(--space-m);
+  }
+
+  @media (min-width: 44rem) {
+    .services {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 68rem) {
+    .services {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .service--feature {
+      grid-column: span 2;
+    }
+
+    /* Six entries with a double-width feature leaves a lone card stranded on
+       the last row; widening the last one closes the shape. */
+    .service:last-child {
+      grid-column: span 2;
+    }
+  }
+
+  .service__link {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: var(--space-m);
+    background: var(--stone-000);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius-m);
+    text-decoration: none;
+    color: inherit;
+    transition:
+      border-color 0.18s var(--ease-out),
+      box-shadow 0.18s var(--ease-out),
+      transform 0.18s var(--ease-out);
+  }
+
+  .service--feature .service__link {
+    padding: clamp(1.5rem, 1rem + 2vw, 2.25rem);
+    background: var(--graphite-900);
+    border-color: var(--graphite-900);
+    color: var(--stone-100);
+  }
+
+  .service__link:hover {
+    border-color: var(--brand-500);
+    box-shadow: var(--shadow-m);
+    transform: translateY(-2px);
+  }
+
+  .service__icon {
+    color: var(--brand-700);
+    margin-bottom: var(--space-s);
+  }
+
+  .service--feature .service__icon {
+    color: var(--brand-300);
+  }
+
+  .service h3 {
+    font-size: var(--step-1);
+  }
+
+  .service--feature h3 {
+    color: #fff;
+    font-size: var(--step-3);
+    max-width: 14ch;
+  }
+
+  .service p {
+    margin-top: 0.5rem;
+    color: var(--graphite-600);
+    font-size: var(--step--1);
+    line-height: 1.6;
+    flex: 1;
+  }
+
+  .service--feature p {
+    color: var(--stone-200);
+    font-size: var(--step-0);
+    max-width: 46ch;
+  }
+
+  .service__more {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    margin-top: var(--space-m);
+    font-size: var(--step--1);
+    font-weight: 700;
+    color: var(--brand-700);
+  }
+
+  .service--feature .service__more {
+    color: var(--brand-300);
+  }
+
+  .service__link:hover .service__more {
+    color: var(--graphite-900);
+  }
+
+  .service--feature .service__link:hover .service__more {
+    color: #fff;
+  }
+
+  /* ==========================================================================
+     REASONS — red field, content off-centre
+     ========================================================================== */
+  .reasons-sec {
+    background: var(--brand-600);
+    color: var(--brand-100);
+    padding-block: var(--space-3xl);
+  }
+
+  .reasons-grid {
+    display: grid;
+    gap: var(--space-xl);
+  }
+
+  @media (min-width: 62rem) {
+    .reasons-grid {
+      grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);
+      gap: clamp(2rem, 5vw, 5rem);
+      align-items: start;
+    }
+
+    .reasons-head {
+      position: sticky;
+      top: calc(var(--header-h) + var(--space-l));
+    }
+  }
+
+  .reasons-head h2 {
+    color: #fff;
+  }
+
+  .reasons-head .lede {
+    margin-top: var(--space-s);
+    color: var(--brand-100);
+  }
+
+  .reasons {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: var(--space-l);
+  }
+
+  @media (min-width: 40rem) {
+    .reasons {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-l) var(--space-xl);
+    }
+  }
+
+  .reason {
+    display: flex;
+    gap: var(--space-s);
+    padding-top: var(--space-s);
+    border-top: 1px solid rgba(255, 255, 255, 0.28);
+  }
+
+  .reason__icon {
+    flex: none;
+    color: #fff;
+    margin-top: 0.125rem;
+  }
+
+  .reason h3 {
+    font-size: var(--step-1);
+    line-height: 1.3;
+    color: #fff;
+  }
+
+  .reason p {
+    margin-top: 0.375rem;
+    color: var(--brand-100);
+    font-size: var(--step--1);
+    line-height: 1.6;
+  }
+
+  /* ==========================================================================
+     PROJECTS — imagery breaks the column
+     ========================================================================== */
+  .projects-sec {
+    padding-block: var(--space-3xl);
+  }
+
+  /* Carries the gap the removed gallery note used to hold open. */
+  .projects-head {
+    max-width: 42ch;
+    margin-bottom: var(--space-xl);
+  }
+
+  .projects-head .lede {
+    margin-top: var(--space-s);
+  }
+
+  .projects {
+    list-style: none;
+    margin-block: 0;
+    padding: 0 var(--gutter);
+    display: grid;
+    gap: var(--space-l) var(--space-m);
+  }
+
+  @media (min-width: 46rem) {
+    .projects {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  .project__meta {
+    margin-top: var(--space-m);
+  }
+
+  .project h3 {
+    font-size: var(--step-1);
+  }
+
+  .project dl {
+    margin: var(--space-s) 0 0;
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .project dt {
+    font-size: var(--step--4);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--graphite-500);
+  }
+
+  .project dd {
+    margin: 0.125rem 0 0;
+    font-size: var(--step--1);
+    color: var(--graphite-700);
+    line-height: 1.5;
+  }
+
+  .projects-foot {
+    margin-top: var(--space-xl);
+    text-align: center;
+  }
+
+  /* ==========================================================================
+     FAQ — heading pinned left, questions running right
+     ========================================================================== */
+  .faq-sec {
+    background: var(--stone-100);
+    padding-block: var(--space-3xl);
+    /* Room for the CTA panel lifted out of the next section. */
+    padding-bottom: clamp(7rem, 5rem + 8vw, 11rem);
+  }
+
+  .faq-grid {
+    display: grid;
+    gap: var(--space-l);
+  }
+
+  @media (min-width: 62rem) {
+    .faq-grid {
+      grid-template-columns: minmax(0, 0.6fr) minmax(0, 1.4fr);
+      gap: clamp(2rem, 5vw, 5rem);
+      align-items: start;
+    }
+
+    .faq-aside {
+      position: sticky;
+      top: calc(var(--header-h) + var(--space-l));
+    }
+  }
+
+  .faq-aside__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    margin-top: var(--space-m);
+    font-size: var(--step--1);
+    font-weight: 700;
+    color: var(--brand-700);
+    text-decoration: none;
+  }
+
+  .faq-aside__link:hover {
+    color: var(--graphite-900);
+  }
+
+  /* ==========================================================================
+     CLOSE — red panel lifted into the FAQ field
+     ========================================================================== */
+  .cta-sec {
+    padding-bottom: var(--space-3xl);
+  }
+
+  .cta {
+    margin-top: clamp(-8rem, -5rem - 5vw, -4.5rem);
+    padding: clamp(1.75rem, 1.25rem + 3vw, 3.5rem);
+    background: var(--brand-600);
+    color: var(--brand-100);
+    border-radius: var(--radius-m);
+    box-shadow: var(--shadow-l);
+    display: grid;
+    gap: var(--space-xl);
+    align-items: center;
+  }
+
+  @media (min-width: 60rem) {
+    .cta {
+      grid-template-columns: 1.5fr 1fr;
+      gap: var(--space-2xl);
+    }
+  }
+
+  .cta h2 {
+    color: #fff;
+    max-width: 20ch;
+  }
+
+  .cta .lede {
+    margin-top: var(--space-s);
+    color: var(--brand-100);
+    max-width: 54ch;
+  }
+
+  .cta__actions {
+    display: grid;
+    gap: var(--space-s);
+    align-content: start;
+  }
+
+  @media (min-width: 30rem) and (max-width: 59.999rem) {
+    .cta__actions {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+</style>

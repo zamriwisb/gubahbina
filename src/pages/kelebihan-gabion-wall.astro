@@ -1,0 +1,372 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Icon from '../components/Icon.astro';
+import GabionDiagram from '../components/GabionDiagram.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { benefits } from '../data/content';
+
+const comparison = [
+  {
+    aspect: 'Saliran air',
+    gabion: 'Telap air. Air melalui celah batu dan keluar di muka dinding.',
+    concrete: 'Tertutup. Perlu lubang saliran khas supaya air tidak terkumpul di belakang.',
+  },
+  {
+    aspect: 'Tindak balas pada pergerakan tanah',
+    gabion: 'Boleh lentur sedikit mengikut pergerakan tanpa terus retak.',
+    concrete: 'Struktur tegar. Pergerakan tanah boleh menyebabkan retak atau condong.',
+  },
+  {
+    aspect: 'Bahan utama',
+    gabion: 'Sangkar mesh dan batu bergred. Berat batu yang menahan tanah.',
+    concrete: 'Konkrit bertetulang, biasanya memerlukan kerja acuan dan masa mengeras.',
+  },
+  {
+    aspect: 'Kemasan',
+    gabion: 'Muka batu semula jadi, tidak memerlukan kemasan tambahan.',
+    concrete: 'Permukaan konkrit, biasanya memerlukan kemasan jika mahu rupa tertentu.',
+  },
+];
+
+const suitable = [
+  'Tebing sungai dan tepi longkang besar',
+  'Kaki cerun berhampiran rumah atau bangunan',
+  'Kawasan yang mengalami hakisan berulang',
+  'Beza aras tanah di halaman atau tapak',
+  'Kawasan tanah dan kebun',
+  'Tapak pembinaan dan projek komersial',
+];
+
+const considerations = [
+  {
+    icon: 'survey' as const,
+    text: 'Keadaan tanah asas perlu disemak — struktur memerlukan asas yang stabil.',
+  },
+  {
+    icon: 'wall' as const,
+    text: 'Ketinggian yang diperlukan mempengaruhi susunan tingkat dan lebar tapak struktur.',
+  },
+  {
+    icon: 'stone' as const,
+    text: 'Laluan masuk ke tapak menentukan cara batu dan bahan dibawa masuk.',
+  },
+  {
+    icon: 'water' as const,
+    text: 'Punca sebenar masalah perlu dikenal pasti — struktur yang dipasang tanpa memahami puncanya mungkin tidak menyelesaikan masalah.',
+  },
+];
+---
+
+<Base
+  title="Kelebihan Gabion Wall | Kenapa Ia Sesuai untuk Kawalan Hakisan & Cerun"
+  description="Fungsi dan kelebihan gabion wall: saliran air, fleksibiliti, kekuatan, dan kesesuaian untuk keadaan tapak tempatan. Perbandingan dengan tembok konkrit biasa."
+  path="/kelebihan-gabion-wall/"
+>
+  <PageHero
+    title="Kelebihan gabion wall"
+    lede="Apa yang struktur ini lakukan, kenapa salirannya penting, dan di mana ia sesuai digunakan."
+    path="/kelebihan-gabion-wall/"
+  />
+
+  <!-- Mekanisme -->
+  <section class="section">
+    <div class="wrap explain">
+      <div class="explain__text">
+        <h2>Air adalah puncanya</h2>
+        <div class="prose">
+          <p class="lede">
+            Kebanyakan kerosakan tebing dan cerun berpunca daripada air — sama
+            ada air yang mengalir di permukaan, atau air yang terkumpul di dalam
+            tanah.
+          </p>
+          <p>
+            Apabila air terkumpul di belakang struktur tertutup, ia membina
+            tekanan. Tekanan itulah yang meretakkan, mencondongkan atau
+            merobohkan tembok penahan.
+          </p>
+          <p>
+            Gabion menyelesaikan masalah ini dengan cara yang mudah: ia tidak
+            menghalang air. Air melalui celah antara batu dan keluar di muka
+            dinding, jadi tekanan tidak sempat terbina.
+          </p>
+        </div>
+      </div>
+      <div class="explain__figure">
+        <GabionDiagram />
+      </div>
+    </div>
+  </section>
+
+  <!-- Fungsi penuh -->
+  <section class="section field-stone">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Fungsi dan kelebihan</h2>
+        <p class="lede">
+          Apa yang struktur ini lakukan di tapak, dan kenapa ia dipilih.
+        </p>
+      </div>
+
+      <ul class="benefits">
+        {
+          benefits.map((b) => (
+            <li class="benefit">
+              <span class="benefit__icon">
+                <Icon name={b.icon} size={26} />
+              </span>
+              <div>
+                <h3>{b.title}</h3>
+                <p>{b.body}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- Perbandingan -->
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Gabion berbanding tembok konkrit tertutup</h2>
+        <p class="lede">
+          Kedua-duanya ada tempatnya. Perbezaan utama terletak pada cara setiap
+          satu mengendalikan air dan pergerakan tanah.
+        </p>
+      </div>
+
+      <div class="table-scroll">
+        <table class="compare">
+          <thead>
+            <tr>
+              <th scope="col">Aspek</th>
+              <th scope="col">Gabion wall</th>
+              <th scope="col">Tembok konkrit tertutup</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              comparison.map((row) => (
+                <tr>
+                  <th scope="row">{row.aspect}</th>
+                  <td>{row.gabion}</td>
+                  <td>{row.concrete}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">
+        Pilihan yang sesuai bergantung pada keadaan tapak. Kami akan maklumkan
+        jika gabion bukan penyelesaian terbaik untuk keadaan anda.
+      </p>
+    </div>
+  </section>
+
+  <!-- Kesesuaian -->
+  <section class="section field-brand">
+    <div class="wrap two-col">
+      <div>
+        <h2>Di mana ia sesuai</h2>
+        <ul class="ticks">
+          {
+            suitable.map((s) => (
+              <li>
+                <Icon name="check" size={20} />
+                <span>{s}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <div>
+        <h2>Apa yang perlu disemak dahulu</h2>
+        <ul class="ticks ticks--plain">
+          {
+            considerations.map((c) => (
+              <li>
+                <Icon name={c.icon} size={20} />
+                <span>{c.text}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand
+    heading="Ingin tahu sama ada gabion sesuai untuk tapak anda?"
+    body="Hantar gambar keadaan tapak melalui WhatsApp. Kami akan beritahu secara jujur sama ada gabion sesuai, dan apa yang perlu disemak di tapak."
+    message="Salam, saya ingin tahu sama ada gabion wall sesuai untuk keadaan tapak saya."
+  />
+</Base>
+
+<style>
+  .explain {
+    display: grid;
+    gap: var(--space-xl);
+    align-items: center;
+  }
+
+  @media (min-width: 62rem) {
+    .explain {
+      grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+      gap: var(--space-2xl);
+    }
+  }
+
+  .explain__text .prose {
+    margin-top: var(--space-m);
+  }
+
+  .explain__text .lede {
+    margin-bottom: var(--space-s);
+  }
+
+  /* --- Benefits --- */
+  .benefits {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: var(--space-l) var(--space-2xl);
+  }
+
+  @media (min-width: 46rem) {
+    .benefits {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .benefit {
+    display: flex;
+    gap: var(--space-s);
+  }
+
+  .benefit__icon {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: var(--radius-s);
+    background: var(--brand-100);
+    color: var(--brand-700);
+  }
+
+  .benefit h3 {
+    font-size: var(--step-1);
+    line-height: 1.3;
+  }
+
+  .benefit p {
+    margin-top: 0.375rem;
+    color: var(--graphite-600);
+    font-size: var(--step--1);
+    line-height: 1.6;
+    max-width: 42ch;
+  }
+
+  /* --- Comparison table --- */
+  .table-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border: 1px solid var(--rule);
+    border-radius: var(--radius-m);
+    background: var(--stone-000);
+  }
+
+  .compare {
+    width: 100%;
+    min-width: 44rem;
+    border-collapse: collapse;
+    font-size: var(--step--1);
+  }
+
+  .compare th,
+  .compare td {
+    text-align: left;
+    vertical-align: top;
+    padding: var(--space-s) var(--space-m);
+    border-bottom: 1px solid var(--rule);
+    line-height: 1.55;
+  }
+
+  .compare thead th {
+    background: var(--graphite-900);
+    color: #fff;
+    font-size: var(--step--3);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+  }
+
+  .compare tbody th {
+    font-weight: 700;
+    color: var(--graphite-900);
+    width: 12rem;
+    background: var(--stone-050);
+  }
+
+  .compare td {
+    color: var(--graphite-700);
+  }
+
+  .compare tbody tr:last-child th,
+  .compare tbody tr:last-child td {
+    border-bottom: 0;
+  }
+
+  .table-note {
+    margin-top: var(--space-m);
+    font-size: var(--step--1);
+    color: var(--graphite-600);
+    max-width: 60ch;
+  }
+
+  /* --- Two column lists --- */
+  .two-col {
+    display: grid;
+    gap: var(--space-xl);
+  }
+
+  @media (min-width: 56rem) {
+    .two-col {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-2xl);
+    }
+  }
+
+  .two-col h2 {
+    font-size: var(--step-3);
+    margin-bottom: var(--space-m);
+  }
+
+  .ticks {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: var(--space-s);
+  }
+
+  .ticks li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.625rem;
+    line-height: 1.55;
+    font-size: var(--step-0);
+    color: var(--brand-100);
+  }
+
+  .ticks :global(svg) {
+    flex: none;
+    margin-top: 0.2rem;
+    color: var(--tick-on-brand);
+  }
+</style>

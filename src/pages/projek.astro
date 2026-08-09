@@ -1,0 +1,240 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Icon from '../components/Icon.astro';
+import PhotoSlot from '../components/PhotoSlot.astro';
+import { waLink } from '../config/site';
+import { projectSlots } from '../data/content';
+
+const categories = [
+  { icon: 'shield' as const, label: 'Perlindungan tebing' },
+  { icon: 'slope-fail' as const, label: 'Pengukuhan cerun' },
+  { icon: 'wall' as const, label: 'Tembok penahan' },
+  { icon: 'water' as const, label: 'Kawalan hakisan' },
+  { icon: 'drainage' as const, label: 'Kerja saliran' },
+  { icon: 'gabion' as const, label: 'Pemasangan gabion' },
+];
+---
+
+<Base
+  title="Projek Gabion Wall | Kerja Perlindungan Tebing, Cerun & Tembok Penahan"
+  description="Galeri projek gabion wall — perlindungan tebing, pengukuhan cerun dan tembok penahan. Lihat keadaan tapak sebelum dan selepas struktur gabion dipasang."
+  path="/projek/"
+>
+  <PageHero
+    title="Projek"
+    lede="Perbandingan keadaan tapak sebelum dan selepas struktur gabion dipasang. Setiap pasangan gambar diambil dari sudut yang sama supaya perbezaannya jelas."
+    path="/projek/"
+  />
+
+  <!-- Gallery -->
+  <section class="section--tight section">
+    <div class="wrap">
+      <ul class="projects">
+        {
+          projectSlots.map((p) => (
+            <li class="project">
+              <div class="project__pair">
+                <figure>
+                  <PhotoSlot
+                    ratio="4 / 3"
+                    src={p.before}
+                    alt={p.beforeAlt}
+                    sizes="(min-width: 64rem) 17rem, calc(50vw - 1.25rem)"
+                    widths={[360, 540, 720, 1080]}
+                  />
+                  <figcaption>Sebelum</figcaption>
+                </figure>
+                <figure>
+                  <PhotoSlot
+                    ratio="4 / 3"
+                    src={p.after}
+                    alt={p.afterAlt}
+                    sizes="(min-width: 64rem) 17rem, calc(50vw - 1.25rem)"
+                    widths={[360, 540, 720, 1080]}
+                  />
+                  <figcaption>Selepas</figcaption>
+                </figure>
+              </div>
+              <div class="project__meta">
+                <h3>{p.title}</h3>
+                <dl>
+                  <div>
+                    <dt>Masalah</dt>
+                    <dd>{p.problem}</dd>
+                  </div>
+                  <div>
+                    <dt>Penyelesaian</dt>
+                    <dd>{p.solution}</dd>
+                  </div>
+                </dl>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- Categories -->
+  <section class="section field-stone">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Jenis kerja yang kami ambil</h2>
+        <p class="lede">
+          Selain kerja di atas, kami juga mengambil kerja dalam kategori
+          berikut. Setiap tapak berbeza — hubungi kami untuk semakan.
+        </p>
+      </div>
+      <ul class="cats">
+        {
+          categories.map((c) => (
+            <li>
+              <Icon name={c.icon} size={22} />
+              <span>{c.label}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- Turn the empty gallery into a conversion moment -->
+  <section class="section">
+    <div class="wrap wrap--narrow ask">
+      <span class="ask__icon"><Icon name="survey" size={32} /></span>
+      <h2>Ada masalah serupa di tapak anda?</h2>
+      <p class="lede">
+        Setiap tapak berbeza. Hantar gambar keadaan tapak anda melalui
+        WhatsApp — itu lebih berguna daripada melihat projek orang lain, kerana
+        penyelesaian bergantung pada keadaan tanah dan aliran air di tapak anda
+        sendiri.
+      </p>
+      <a
+        class="btn"
+        href={waLink('Salam, saya ada masalah di tapak saya. Saya ingin hantar gambar untuk semakan.')}
+        target="_blank"
+        rel="noopener"
+      >
+        <Icon name="whatsapp" size={20} />
+        Hantar gambar tapak anda
+      </a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* --- Projects --- */
+  .projects {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: var(--space-2xl);
+  }
+
+  @media (min-width: 64rem) {
+    .projects {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .project__pair {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-xs);
+  }
+
+  .project__pair figure {
+    margin: 0;
+  }
+
+  .project__pair figcaption {
+    margin-top: 0.5rem;
+    font-size: var(--step--4);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.11em;
+    color: var(--graphite-500);
+  }
+
+  .project__meta {
+    margin-top: var(--space-m);
+  }
+
+  .project h3 {
+    font-size: var(--step-2);
+  }
+
+  .project dl {
+    margin: var(--space-s) 0 0;
+    display: grid;
+    gap: 0.625rem;
+  }
+
+  .project dt {
+    font-size: var(--step--4);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--graphite-500);
+  }
+
+  .project dd {
+    margin: 0.125rem 0 0;
+    font-size: var(--step--1);
+    color: var(--graphite-700);
+    line-height: 1.5;
+  }
+
+  /* --- Categories --- */
+  .cats {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+  }
+
+  .cats li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1rem;
+    background: var(--stone-000);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius-m);
+    font-size: var(--step--1);
+    font-weight: 600;
+    color: var(--graphite-700);
+  }
+
+  .cats :global(svg) {
+    color: var(--brand-700);
+    flex: none;
+  }
+
+  /* --- Ask block --- */
+  .ask {
+    text-align: center;
+    display: grid;
+    justify-items: center;
+  }
+
+  .ask__icon {
+    display: grid;
+    place-items: center;
+    width: 4rem;
+    height: 4rem;
+    border-radius: var(--radius-m);
+    background: var(--brand-100);
+    color: var(--brand-700);
+    margin-bottom: var(--space-m);
+  }
+
+  .ask .lede {
+    margin-top: var(--space-s);
+    margin-bottom: var(--space-l);
+  }
+</style>

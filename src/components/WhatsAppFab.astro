@@ -1,0 +1,89 @@
+---
+import Icon from './Icon.astro';
+import { site, waLink } from '../config/site';
+
+/**
+ * Persistent mobile contact bar. The primary conversion on this site is a
+ * WhatsApp message, and the primary device is a phone — often held at the
+ * damaged site itself — so the action never scrolls away.
+ */
+---
+
+<div class="contact-bar">
+  <a
+    class="contact-bar__action contact-bar__action--wa"
+    href={waLink()}
+    target="_blank"
+    rel="noopener"
+  >
+    <Icon name="whatsapp" size={22} />
+    WhatsApp Sekarang
+  </a>
+  <a
+    class="contact-bar__action contact-bar__action--call"
+    href={`tel:${site.contact.phoneNumber}`}
+    aria-label={`Telefon ${site.contact.phoneDisplay}`}
+  >
+    <Icon name="phone" size={22} />
+    <span>Telefon</span>
+  </a>
+</div>
+
+<style>
+  .contact-bar {
+    position: fixed;
+    inset: auto 0 0 0;
+    z-index: 60;
+    display: flex;
+    gap: 1px;
+    background: var(--rule-strong);
+    border-top: 1px solid var(--rule-strong);
+    box-shadow: 0 -2px 6px rgba(28, 31, 29, 0.08), 0 -10px 28px rgba(28, 31, 29, 0.1);
+    padding-bottom: env(safe-area-inset-bottom, 0);
+  }
+
+  .contact-bar__action {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 3.5rem;
+    font-size: var(--step-0);
+    font-weight: 700;
+    text-decoration: none;
+    transition: background-color 0.15s var(--ease-out);
+  }
+
+  .contact-bar__action :global(svg) {
+    flex: none;
+  }
+
+  .contact-bar__action--wa {
+    flex: 1.8;
+    background: var(--action-600);
+    color: #fff;
+  }
+
+  .contact-bar__action--wa:active {
+    background: var(--action-700);
+  }
+
+  .contact-bar__action--call {
+    background: var(--stone-000);
+    color: var(--graphite-900);
+  }
+
+  .contact-bar__action--call:active {
+    background: var(--stone-100);
+  }
+
+  /* The bar retires only once the header's own WhatsApp button appears, which
+     happens at 64rem. Retiring it at 48rem left tablets and large phones in
+     landscape with no persistent action at all. */
+  @media (min-width: 64rem) {
+    .contact-bar {
+      display: none;
+    }
+  }
+</style>

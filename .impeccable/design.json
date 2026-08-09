@@ -1,0 +1,516 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-02",
+  "title": "Design System: Gabion Wall Malaysia",
+  "extensions": {
+    "colorMeta": {
+      "graphite-900": {
+        "role": "primary",
+        "displayName": "Wet Slate",
+        "canonical": "#1c1f1d",
+        "tonalRamp": [
+          "#1c1f1d",
+          "#252a27",
+          "#2e3330",
+          "#3f4642",
+          "#545b55",
+          "#8b918c",
+          "#c2c6c3",
+          "#e8eae9"
+        ]
+      },
+      "brand-500": {
+        "role": "primary",
+        "displayName": "Brand Red",
+        "canonical": "#e14024",
+        "note": "Client-supplied. 4.24:1 with white — a fill and graphic colour, never small text. Adjacent steps carry text; see the Brand Ramp Rule in DESIGN.md.",
+        "tonalRamp": [
+          "#7d1f0e",
+          "#a02714",
+          "#c4321a",
+          "#cf3720",
+          "#e14024",
+          "#f2704f",
+          "#f8a894",
+          "#fdeae5"
+        ]
+      },
+      "action-600": {
+        "role": "secondary",
+        "displayName": "WhatsApp Green, Darkened",
+        "canonical": "#0f7c41",
+        "tonalRamp": [
+          "#062f19",
+          "#084524",
+          "#0c6836",
+          "#0f7c41",
+          "#3f9c68",
+          "#79bd97",
+          "#b3d9c4",
+          "#dff0e5"
+        ]
+      },
+      "action-100": {
+        "role": "secondary",
+        "displayName": "Pale Green Wash",
+        "canonical": "#dff0e5",
+        "tonalRamp": [
+          "#0c6836",
+          "#0f7c41",
+          "#3f9c68",
+          "#79bd97",
+          "#9ccdb1",
+          "#b3d9c4",
+          "#dff0e5",
+          "#f1f9f4"
+        ]
+      },
+      "rust-600": {
+        "role": "tertiary",
+        "displayName": "Oxide Rust",
+        "canonical": "#a64b21",
+        "tonalRamp": [
+          "#4a1f0c",
+          "#6b2e12",
+          "#8c3f1c",
+          "#a64b21",
+          "#e29b76",
+          "#efc3ad",
+          "#f5e5dc"
+        ],
+        "note": "Form validation only. Was the damage colour before the brand red arrived; the two hues sat too close to read as a distinction."
+      },
+      "amber-600": {
+        "role": "tertiary",
+        "displayName": "Signal Amber",
+        "canonical": "#c9871f",
+        "tonalRamp": [
+          "#4a3009",
+          "#6b4a10",
+          "#a06a12",
+          "#c9871f",
+          "#e0a94e",
+          "#e8b755",
+          "#f0d59c",
+          "#f7ecd6"
+        ]
+      },
+      "stone-050": {
+        "role": "neutral",
+        "displayName": "Mineral Stone",
+        "canonical": "#f4f4f1",
+        "tonalRamp": [
+          "#3a3a33",
+          "#57574d",
+          "#7c7c70",
+          "#a3a396",
+          "#c6c0ae",
+          "#ddd8c9",
+          "#eae9e3",
+          "#f4f4f1"
+        ]
+      },
+      "stone-000": {
+        "role": "neutral",
+        "displayName": "Raised White",
+        "canonical": "#ffffff",
+        "tonalRamp": [
+          "#1c1f1d",
+          "#3f4642",
+          "#545b55",
+          "#8b918c",
+          "#c6c0ae",
+          "#ddd8c9",
+          "#eae9e3",
+          "#ffffff"
+        ]
+      },
+      "stone-200": {
+        "role": "neutral",
+        "displayName": "Sand Rule",
+        "canonical": "#ddd8c9",
+        "tonalRamp": [
+          "#3a362b",
+          "#565044",
+          "#7b7461",
+          "#a39b85",
+          "#c6c0ae",
+          "#ddd8c9",
+          "#eae9e3",
+          "#f7f6f2"
+        ]
+      },
+      "graphite-500": {
+        "role": "neutral",
+        "displayName": "Muted Graphite",
+        "canonical": "#545b55",
+        "tonalRamp": [
+          "#1c1f1d",
+          "#252a27",
+          "#2e3330",
+          "#3f4642",
+          "#545b55",
+          "#8b918c",
+          "#c2c6c3",
+          "#e8eae9"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display / H1",
+        "purpose": "One per page. Hero headline and every PageHero title. Bricolage Grotesque condensed uppercase at wdth 82%, weight 800. Capped at 18-20ch. text-wrap: pretty on phones, balance from 48rem."
+      },
+      "headline": {
+        "displayName": "Headline / H2",
+        "purpose": "Section headings, condensed uppercase at wdth 86%, weight 750. Steps down to --step-3 where an h2 is a column heading rather than a section heading."
+      },
+      "title": {
+        "displayName": "Title / H3",
+        "purpose": "Card and item headings. Sentence case, wdth 92%. Usually pinned to --step-1 inside grid items."
+      },
+      "subhead": {
+        "displayName": "Subhead / H4",
+        "purpose": "The level at which type stops being condensed and rejoins the body voice. No font-stretch override."
+      },
+      "lede": {
+        "displayName": "Lede",
+        "purpose": "One supporting sentence under a heading, max 60ch. Re-coloured automatically inside the committed field classes."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Prose at 1.65 line-height with tabular-nums globally. Capped at 68ch (--measure); 42-44ch inside grid items."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Small uppercase tracked labels: dl terms, footer column titles, before/after captions, brand sub-line, placeholder chips. Always resets font-stretch to 100%."
+      },
+      "button": {
+        "displayName": "Button",
+        "purpose": "Action label at wdth 94%, weight 700, 1.0625rem. Slightly condensed so long BM labels fit a phone-width button without shrinking."
+      },
+      "diagram-label": {
+        "displayName": "Diagram label",
+        "purpose": "13px measured in SVG viewBox units, so it scales with the cross-section rather than the UI ramp. Hidden below 46rem, where it would render around 8px. Token: --diagram-label."
+      }
+    },
+    "shadows": [
+      {
+        "name": "shadow-s",
+        "value": "0 1px 2px rgba(28, 31, 29, 0.06), 0 2px 6px rgba(28, 31, 29, 0.05)",
+        "purpose": "The only resting shadow. Enquiry form panel and FAQ aside card; also the pressed state of a button."
+      },
+      {
+        "name": "shadow-m",
+        "value": "0 2px 4px rgba(28, 31, 29, 0.06), 0 8px 20px rgba(28, 31, 29, 0.08)",
+        "purpose": "Hover lift on service cards and buttons, and the scrolled sticky header."
+      },
+      {
+        "name": "shadow-l",
+        "value": "0 4px 8px rgba(28, 31, 29, 0.07), 0 18px 40px rgba(28, 31, 29, 0.12)",
+        "purpose": "One use only: the mobile navigation panel dropping over page content."
+      },
+      {
+        "name": "contact-bar",
+        "value": "0 -2px 6px rgba(28, 31, 29, 0.08), 0 -10px 28px rgba(28, 31, 29, 0.1)",
+        "purpose": "Inverted variant for the fixed bottom contact bar, whose edge faces downward."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "The only easing in the system. Every transition and every diagram keyframe uses it."
+      },
+      {
+        "name": "state-fast",
+        "value": "0.15s",
+        "purpose": "Colour-only transitions: nav links, contact bar taps, input border and background."
+      },
+      {
+        "name": "state-standard",
+        "value": "0.18s",
+        "purpose": "Hover on buttons and cards: background, border, shadow and a 1-2px translateY together."
+      },
+      {
+        "name": "state-chevron",
+        "value": "0.22s",
+        "purpose": "FAQ chevron 180 degree rotation. Suppressed entirely under prefers-reduced-motion."
+      },
+      {
+        "name": "diagram-stone",
+        "value": "0.62s stone-settle, per-stone staggered delay",
+        "purpose": "The one authored moment: caged stones settle in course by course, bottom tier first, left to right."
+      },
+      {
+        "name": "diagram-flow",
+        "value": "0.85s flow-draw (stroke-dashoffset 340 to 0), delays 0.62/0.72/0.82s",
+        "purpose": "Water lines drawing through the wall face after the cages fill; arrowheads fade in at 0.4s."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "hero-actions-stack",
+        "value": "30rem"
+      },
+      {
+        "name": "panel-padding-tighten",
+        "value": "34rem"
+      },
+      {
+        "name": "grid-2",
+        "value": "40rem"
+      },
+      {
+        "name": "cards-2up",
+        "value": "44rem"
+      },
+      {
+        "name": "benefits-2up",
+        "value": "46rem"
+      },
+      {
+        "name": "h1-balance",
+        "value": "48rem"
+      },
+      {
+        "name": "two-col-lists",
+        "value": "56rem"
+      },
+      {
+        "name": "cta-split",
+        "value": "60rem"
+      },
+      {
+        "name": "explain-split",
+        "value": "62rem"
+      },
+      {
+        "name": "nav-desktop",
+        "value": "64rem"
+      },
+      {
+        "name": "cards-3up",
+        "value": "68rem"
+      },
+      {
+        "name": "steps-4up",
+        "value": "72rem"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The WhatsApp conversion button. The only element permitted to be action green.",
+      "html": "<a class=\"ds-btn\" href=\"#\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" aria-hidden=\"true\"><path fill=\"currentColor\" d=\"M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38a9.87 9.87 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.11.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.24-8.23a8.19 8.19 0 0 1 8.23 8.24c0 4.54-3.7 8.23-8.24 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.78.97-.15.16-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.44.13-.15.17-.25.25-.42.09-.16.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43h-.47c-.16 0-.43.06-.65.31-.23.25-.86.84-.86 2.05s.88 2.38 1 2.54c.13.17 1.74 2.65 4.21 3.71.59.26 1.05.41 1.4.52.59.19 1.13.16 1.55.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.11-.22-.17-.47-.29Z\"/></svg>WhatsApp Sekarang</a>",
+      "css": ".ds-btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.625rem; min-height: 3.25rem; padding: 0.75rem 1.375rem; background: #0f7c41; color: #fff; border: 2px solid #0f7c41; border-radius: 5px; font-family: 'Archivo Variable', ui-sans-serif, system-ui, sans-serif; font-size: 1.0625rem; font-weight: 700; font-stretch: 94%; line-height: 1.2; text-decoration: none; cursor: pointer; transition: background-color 0.18s cubic-bezier(0.16,1,0.3,1), border-color 0.18s cubic-bezier(0.16,1,0.3,1), box-shadow 0.18s cubic-bezier(0.16,1,0.3,1), transform 0.18s cubic-bezier(0.16,1,0.3,1); } .ds-btn svg { flex: none; } .ds-btn:hover { background: #0c6836; border-color: #0c6836; box-shadow: 0 2px 4px rgba(28,31,29,0.06), 0 8px 20px rgba(28,31,29,0.08); transform: translateY(-1px); } .ds-btn:active { transform: translateY(0); box-shadow: 0 1px 2px rgba(28,31,29,0.06), 0 2px 6px rgba(28,31,29,0.05); } .ds-btn:focus-visible { outline: 3px solid #c9871f; outline-offset: 3px; border-radius: 5px; }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Secondary in-page navigation. Outlined graphite that inverts to solid on hover. Never used for the WhatsApp action.",
+      "html": "<a class=\"ds-btn-ghost\" href=\"#\">Lihat semua projek<svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" aria-hidden=\"true\"><g stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 12h15\"/><path d=\"M13 6l6 6-6 6\"/></g></svg></a>",
+      "css": ".ds-btn-ghost { display: inline-flex; align-items: center; justify-content: center; gap: 0.625rem; min-height: 3.25rem; padding: 0.75rem 1.375rem; background: transparent; color: #1c1f1d; border: 2px solid #545b55; border-radius: 5px; font-family: 'Archivo Variable', ui-sans-serif, system-ui, sans-serif; font-size: 1.0625rem; font-weight: 700; font-stretch: 94%; line-height: 1.2; text-decoration: none; cursor: pointer; transition: background-color 0.18s cubic-bezier(0.16,1,0.3,1), border-color 0.18s cubic-bezier(0.16,1,0.3,1), color 0.18s cubic-bezier(0.16,1,0.3,1); } .ds-btn-ghost svg { flex: none; } .ds-btn-ghost:hover { background: #1c1f1d; border-color: #1c1f1d; color: #fff; } .ds-btn-ghost:focus-visible { outline: 3px solid #c9871f; outline-offset: 3px; }"
+    },
+    {
+      "name": "On-Dark Button",
+      "kind": "button",
+      "refersTo": "button-onDark",
+      "description": "Outlined button for use on the hero scrim and inside the olive CTA band. Inverts to solid white on hover.",
+      "html": "<div class=\"ds-ondark-stage\"><a class=\"ds-btn-ondark\" href=\"#\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" aria-hidden=\"true\"><g stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 20h18\"/><path d=\"M4 20 16 6\"/><path d=\"M6.6 16.9l2.2 1.9\"/><path d=\"M9.6 13.4l2.2 1.9\"/><path d=\"M12.6 9.9l2.2 1.9\"/><path d=\"M16 6h4v4\"/></g></svg>Minta Semakan Tapak</a></div>",
+      "css": ".ds-ondark-stage { background: #1c1f1d; padding: 1.5rem; border-radius: 5px; } .ds-btn-ondark { display: inline-flex; align-items: center; justify-content: center; gap: 0.625rem; min-height: 3.25rem; padding: 0.75rem 1.375rem; background: rgba(255,255,255,0.06); color: #fff; border: 2px solid rgba(255,255,255,0.65); border-radius: 5px; font-family: 'Archivo Variable', ui-sans-serif, system-ui, sans-serif; font-size: 1.0625rem; font-weight: 700; font-stretch: 94%; line-height: 1.2; text-decoration: none; transition: background-color 0.18s cubic-bezier(0.16,1,0.3,1), border-color 0.18s cubic-bezier(0.16,1,0.3,1), color 0.18s cubic-bezier(0.16,1,0.3,1); } .ds-btn-ondark svg { flex: none; } .ds-btn-ondark:hover { background: #fff; border-color: #fff; color: #1c1f1d; } .ds-btn-ondark:focus-visible { outline: 3px solid #ffd166; outline-offset: 3px; }"
+    },
+    {
+      "name": "Service Card",
+      "kind": "card",
+      "refersTo": "card-surface",
+      "description": "White card on the mineral ground: authored icon, condensed title, summary, and an olive read-more affordance. Lifts 2px on hover.",
+      "html": "<a class=\"ds-card\" href=\"#\"><span class=\"ds-card__icon\"><svg width=\"28\" height=\"28\" viewBox=\"0 0 24 24\" fill=\"none\" aria-hidden=\"true\"><g stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 6h18v12H3z\"/><path d=\"M9 6v12\"/><path d=\"M15 6v12\"/><path d=\"M3 10h18\"/><path d=\"M3 14h18\"/></g></svg></span><h3 class=\"ds-card__title\">Pemasangan Gabion Wall</h3><p class=\"ds-card__body\">Pembinaan struktur gabion lengkap: pemasangan sangkar mesh, pengisian batu bergred, dan pengikatan antara sangkar.</p><span class=\"ds-card__more\">Lihat butiran<svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" aria-hidden=\"true\"><g stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 12h15\"/><path d=\"M13 6l6 6-6 6\"/></g></svg></span></a>",
+      "css": ".ds-card { display: flex; flex-direction: column; max-width: 22rem; padding: 1.5rem; background: #fff; border: 1px solid #ddd8c9; border-radius: 5px; text-decoration: none; color: #1c1f1d; font-family: 'Archivo Variable', ui-sans-serif, system-ui, sans-serif; transition: border-color 0.18s cubic-bezier(0.16,1,0.3,1), box-shadow 0.18s cubic-bezier(0.16,1,0.3,1), transform 0.18s cubic-bezier(0.16,1,0.3,1); } .ds-card:hover { border-color: #6b7a4e; box-shadow: 0 2px 4px rgba(28,31,29,0.06), 0 8px 20px rgba(28,31,29,0.08); transform: translateY(-2px); } .ds-card:focus-visible { outline: 3px solid #c9871f; outline-offset: 3px; } .ds-card__icon { color: #4a5535; margin-bottom: 1rem; } .ds-card__title { margin: 0; font-size: 1.25rem; font-weight: 700; font-stretch: 92%; line-height: 1.2; letter-spacing: -0.005em; } .ds-card__body { margin: 0.5rem 0 0; color: #3f4642; font-size: 0.9688rem; line-height: 1.6; flex: 1; } .ds-card__more { display: inline-flex; align-items: center; gap: 0.375rem; margin-top: 1.5rem; font-size: 0.9375rem; font-weight: 700; color: #4a5535; } .ds-card:hover .ds-card__more { color: #1c1f1d; }"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input-text",
+      "description": "Recessed field on a white panel. Focus opens the fill to pure white and shifts the stroke to olive; errors go rust with an alert message.",
+      "html": "<div class=\"ds-field\"><label class=\"ds-field__label\" for=\"ds-lokasi\">Lokasi tapak <span>*</span></label><input class=\"ds-field__input\" id=\"ds-lokasi\" type=\"text\" placeholder=\"Daerah dan negeri\"><p class=\"ds-field__error\">Sila nyatakan daerah dan negeri tapak anda.</p></div>",
+      "css": ".ds-field { font-family: 'Archivo Variable', ui-sans-serif, system-ui, sans-serif; max-width: 24rem; } .ds-field__label { display: block; font-size: 0.9375rem; font-weight: 700; color: #1c1f1d; margin-bottom: 0.375rem; } .ds-field__label span { color: #a64b21; } .ds-field__input { width: 100%; padding: 0.75rem 0.875rem; min-height: 3rem; background: #f4f4f1; border: 1.5px solid #c6c0ae; border-radius: 3px; font-size: 1rem; line-height: 1.5; color: #1c1f1d; transition: border-color 0.15s cubic-bezier(0.16,1,0.3,1), background-color 0.15s cubic-bezier(0.16,1,0.3,1); } .ds-field__input::placeholder { color: #5f655e; } .ds-field__input:hover { border-color: #545b55; } .ds-field__input:focus { background: #fff; border-color: #5b6842; } .ds-field__input:focus-visible { outline: 3px solid #c9871f; outline-offset: 3px; } .ds-field__error { margin: 0.375rem 0 0; font-size: 0.875rem; font-weight: 600; color: #8c3f1c; }"
+    },
+    {
+      "name": "Navigation Links",
+      "kind": "nav",
+      "refersTo": "nav-link",
+      "description": "Sticky header links. Current page is marked by an olive fill, not an underline or a border marker.",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-nav__link\" href=\"#\">Utama</a><a class=\"ds-nav__link\" href=\"#\" aria-current=\"page\">Perkhidmatan</a><a class=\"ds-nav__link\" href=\"#\">Projek</a><a class=\"ds-nav__link\" href=\"#\">Hubungi Kami</a></nav>",
+      "css": ".ds-nav { display: flex; align-items: center; gap: 0.25rem; padding: 0.75rem; background: #fff; border-bottom: 1px solid #ddd8c9; font-family: 'Archivo Variable', ui-sans-serif, system-ui, sans-serif; } .ds-nav__link { display: block; padding: 0.5rem 0.6875rem; border-radius: 3px; font-size: 0.9375rem; font-weight: 600; text-decoration: none; color: #2e3330; white-space: nowrap; transition: background-color 0.15s cubic-bezier(0.16,1,0.3,1), color 0.15s cubic-bezier(0.16,1,0.3,1); } .ds-nav__link:hover { background: #eae9e3; color: #1c1f1d; } .ds-nav__link[aria-current=\"page\"] { color: #4a5535; background: #e7eadd; } .ds-nav__link:focus-visible { outline: 3px solid #c9871f; outline-offset: 3px; }"
+    },
+    {
+      "name": "Category Chip",
+      "kind": "chip",
+      "refersTo": "chip-category",
+      "description": "Non-interactive work-type chip: white on the stone field, authored olive glyph, 1px sand border.",
+      "html": "<ul class=\"ds-chips\"><li><svg width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" fill=\"none\" aria-hidden=\"true\"><g stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 3 4.5 6v5.5c0 4.2 3.1 7.9 7.5 9.5 4.4-1.6 7.5-5.3 7.5-9.5V6z\"/><path d=\"M9 12.2l2.2 2.3L15.5 10\"/></g></svg><span>Perlindungan tebing</span></li><li><svg width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" fill=\"none\" aria-hidden=\"true\"><g stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M8 3v18\"/><path d=\"M16 3v18\"/><path d=\"M2 8h17\"/><path d=\"M16.5 5.5 19.5 8l-3 2.5\"/><path d=\"M2 16h17\"/><path d=\"M16.5 13.5 19.5 16l-3 2.5\"/></g></svg><span>Kerja saliran</span></li></ul>",
+      "css": ".ds-chips { list-style: none; padding: 1rem; margin: 0; display: flex; flex-wrap: wrap; gap: 0.75rem; background: #eae9e3; font-family: 'Archivo Variable', ui-sans-serif, system-ui, sans-serif; } .ds-chips li { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.625rem 1rem; background: #fff; border: 1px solid #ddd8c9; border-radius: 5px; font-size: 0.9375rem; font-weight: 600; color: #2e3330; } .ds-chips svg { color: #4a5535; flex: none; }"
+    },
+    {
+      "name": "Committed Colour Field",
+      "kind": "custom",
+      "refersTo": "card-surface",
+      "description": "The signature colour move: a full-bleed region owns a colour and re-maps its own descendants. Never applied to a card or a paragraph.",
+      "html": "<section class=\"ds-field ds-field--olive\"><h2 class=\"ds-field__h\">Kenapa pilih kami</h2><p class=\"ds-field__lede\">Perkara yang benar-benar boleh kami tawarkan.</p><span class=\"ds-field__tile\"><svg width=\"26\" height=\"26\" viewBox=\"0 0 24 24\" fill=\"none\" aria-hidden=\"true\"><g stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 6h18v12H3z\"/><path d=\"M9 6v12\"/><path d=\"M15 6v12\"/><path d=\"M3 10h18\"/><path d=\"M3 14h18\"/></g></svg></span><h3 class=\"ds-field__h3\">Fokus khusus pada gabion wall</h3><p class=\"ds-field__body\">Pemasangan gabion wall adalah kerja utama kami, bukan satu daripada senarai panjang perkhidmatan am.</p></section>",
+      "css": ".ds-field { padding: 2rem; font-family: 'Archivo Variable', ui-sans-serif, system-ui, sans-serif; } .ds-field--olive { background: #4a5535; color: #e7eadd; } .ds-field__h { margin: 0; font-size: 2rem; font-weight: 750; font-stretch: 86%; line-height: 1.06; letter-spacing: -0.01em; text-transform: uppercase; color: #fff; } .ds-field__lede { margin: 1rem 0 2rem; font-size: 1.25rem; line-height: 1.6; color: #e7eadd; max-width: 54ch; } .ds-field__tile { display: grid; place-items: center; width: 3rem; height: 3rem; border-radius: 3px; background: rgba(255,255,255,0.12); color: #fff; margin-bottom: 1rem; } .ds-field__h3 { margin: 0; font-size: 1.25rem; font-weight: 700; font-stretch: 92%; line-height: 1.3; color: #fff; } .ds-field__body { margin: 0.5rem 0 0; font-size: 0.9688rem; line-height: 1.6; color: #e7eadd; max-width: 42ch; }"
+    },
+    {
+      "name": "Photo Slot (marked placeholder)",
+      "kind": "custom",
+      "refersTo": "card-surface",
+      "description": "Every image on the site is one of these. Hatched, dashed and captioned with the exact photograph required and its minimum width. Remove at launch; never restyle to look finished.",
+      "html": "<div class=\"ds-slot\" role=\"img\" aria-label=\"Ruang gambar P-02. Gambar sebenar belum dibekalkan.\"><div class=\"ds-slot__inner\"><svg class=\"ds-slot__icon\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" aria-hidden=\"true\"><g stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 4 2.8 20h18.4z\"/><path d=\"M12 10v4.5\"/><path d=\"M12 17.4v.1\"/></g></svg><p class=\"ds-slot__title\">Ruang gambar P-02</p><p class=\"ds-slot__spec\">Tebing sungai atau longkang yang telah siap dilindungi dengan struktur gabion.</p><p class=\"ds-slot__size\">Minimum 1,400px lebar &middot; JPG atau WebP</p></div></div>",
+      "css": ".ds-slot { position: relative; container-type: inline-size; aspect-ratio: 4 / 3; display: grid; place-items: center; padding: 1rem; overflow: hidden; border-radius: 5px; border: 2px dashed #c6c0ae; color: #3f4642; font-family: 'Archivo Variable', ui-sans-serif, system-ui, sans-serif; background-image: repeating-linear-gradient(-45deg, #e4e0d3 0, #e4e0d3 6px, #eeebe1 6px, #eeebe1 12px); } .ds-slot__inner { max-width: 34ch; text-align: center; display: grid; justify-items: center; gap: 0.375rem; } .ds-slot__icon { color: #c9871f; margin-bottom: 0.125rem; } .ds-slot__title { margin: 0; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; font-stretch: 88%; line-height: 1.3; } .ds-slot__spec { margin: 0; font-size: 0.875rem; line-height: 1.45; font-weight: 500; color: #2e3330; } .ds-slot__size { margin: 0; font-size: 0.75rem; letter-spacing: 0.03em; color: #545b55; } @container (max-width: 300px) { .ds-slot__size { display: none; } .ds-slot__spec { font-size: 0.8125rem; display: -webkit-box; -webkit-line-clamp: 4; line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; } } @container (max-width: 210px) { .ds-slot__spec { -webkit-line-clamp: 3; line-clamp: 3; } } @container (max-width: 150px) { .ds-slot__spec { display: none; } }"
+    },
+    {
+      "name": "FAQ Accordion",
+      "kind": "custom",
+      "refersTo": "card-surface",
+      "description": "Native details/summary with the marker suppressed. Sand rules, olive chevron rotating 180 degrees, works with JavaScript disabled.",
+      "html": "<div class=\"ds-faq\"><details class=\"ds-faq__item\" open><summary class=\"ds-faq__q\"><span>Apa itu gabion wall?</span><svg class=\"ds-faq__chev\" width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" fill=\"none\" aria-hidden=\"true\"><g stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M6 9.5l6 6 6-6\"/></g></svg></summary><div class=\"ds-faq__a\"><p>Gabion wall ialah struktur yang dibina daripada sangkar besi atau mesh yang diisi dengan batu.</p></div></details><details class=\"ds-faq__item\"><summary class=\"ds-faq__q\"><span>Berapa kos pemasangan gabion wall?</span><svg class=\"ds-faq__chev\" width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" fill=\"none\" aria-hidden=\"true\"><g stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M6 9.5l6 6 6-6\"/></g></svg></summary><div class=\"ds-faq__a\"><p>Kos tidak boleh ditetapkan tanpa melihat tapak.</p></div></details></div>",
+      "css": ".ds-faq { border-top: 1px solid #ddd8c9; font-family: 'Archivo Variable', ui-sans-serif, system-ui, sans-serif; } .ds-faq__item { border-bottom: 1px solid #ddd8c9; } .ds-faq__q { display: flex; align-items: flex-start; justify-content: space-between; gap: 1.5rem; padding: 1.5rem 0; cursor: pointer; list-style: none; font-size: 1.25rem; font-weight: 700; line-height: 1.35; color: #1c1f1d; transition: color 0.15s cubic-bezier(0.16,1,0.3,1); } .ds-faq__q::-webkit-details-marker { display: none; } .ds-faq__q:hover { color: #4a5535; } .ds-faq__q:focus-visible { outline: 3px solid #c9871f; outline-offset: 3px; } .ds-faq__chev { flex: none; margin-top: 0.125rem; color: #4a5535; transition: transform 0.22s cubic-bezier(0.16,1,0.3,1); } .ds-faq__item[open] .ds-faq__chev { transform: rotate(180deg); } .ds-faq__a { padding-bottom: 1.5rem; max-width: 68ch; color: #2e3330; line-height: 1.65; } .ds-faq__a p { margin: 0; } @media (prefers-reduced-motion: reduce) { .ds-faq__chev { transition: none; } }"
+    },
+    {
+      "name": "Mobile Contact Bar",
+      "kind": "nav",
+      "refersTo": "button-primary",
+      "description": "Fixed two-action bar below 64rem. The primary conversion never scrolls away, because the visitor is often standing at the damaged site.",
+      "html": "<div class=\"ds-bar\"><a class=\"ds-bar__wa\" href=\"#\"><svg width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" fill=\"none\" aria-hidden=\"true\"><path fill=\"currentColor\" d=\"M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38a9.87 9.87 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.11.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.24-8.23a8.19 8.19 0 0 1 8.23 8.24c0 4.54-3.7 8.23-8.24 8.23Z\"/></svg>WhatsApp Sekarang</a><a class=\"ds-bar__call\" href=\"#\"><svg width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" fill=\"none\" aria-hidden=\"true\"><g stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M6.5 3h3l1.5 4.5-2 1.5a12 12 0 0 0 6 6l1.5-2L21 14.5v3a2.5 2.5 0 0 1-2.7 2.5A17 17 0 0 1 3.5 5.7 2.5 2.5 0 0 1 6 3z\"/></g></svg><span>Telefon</span></a></div>",
+      "css": ".ds-bar { display: flex; gap: 1px; background: #c6c0ae; border-top: 1px solid #c6c0ae; box-shadow: 0 -2px 6px rgba(28,31,29,0.08), 0 -10px 28px rgba(28,31,29,0.1); font-family: 'Archivo Variable', ui-sans-serif, system-ui, sans-serif; } .ds-bar a { flex: 1; display: flex; align-items: center; justify-content: center; gap: 0.5rem; min-height: 3.5rem; font-size: 1rem; font-weight: 700; text-decoration: none; transition: background-color 0.15s cubic-bezier(0.16,1,0.3,1); } .ds-bar a svg { flex: none; } .ds-bar__wa { flex: 1.8; background: #0f7c41; color: #fff; } .ds-bar__wa:hover, .ds-bar__wa:active { background: #0c6836; } .ds-bar__call { background: #fff; color: #1c1f1d; } .ds-bar__call:hover, .ds-bar__call:active { background: #eae9e3; } .ds-bar a:focus-visible { outline: 3px solid #c9871f; outline-offset: -3px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Well-Built Canon",
+    "overview": "This is the conventional Malaysian service-contractor website — sticky header with a WhatsApp button, dark hero over a site photograph, problem section, explainer, services grid, reasons-to-choose, projects, FAQ, contact band, fat footer — built to a standard the trade almost never reaches. The convention was chosen, not defaulted into. The user was offered four distinctive visual worlds and one assigned direction, \"The Section Sheet\" (a geotechnical drawing world, seed key c2a06cab), and deliberately declined all of them in favour of the category standard. The visitor arriving from a high-intent BM search for \"kawalan hakisan tebing\" gets exactly the arrangement they expect, executed properly. Do not \"improve\" this into something expressive. Novelty in the arrangement is a regression here; craft in the execution is the entire proposition. The craft bar is premium Malaysian SME service brands — the standard is finish, not invention.\n\nThe ground is light on purpose. The real use scene is someone standing outdoors in Malaysian daylight, on a phone, looking at the damaged ground they are worried about, often in glare. So the reading surface is mineral off-white (stone-050, #f4f4f1) rather than cream or dark, and the dark surfaces are deployed as deliberate, bounded regions rather than as the ambient mode. Colour does not appear as scattered accent flecks; it arrives as a committed field that owns a whole section from edge to edge, so the page reads as a stack of confident bands rather than a decorated document. Materially the world is quarry and site: wet-slate graphite, vegetated olive, sand-coloured rules, oxide rust reserved for erosion and damage, and one darkened WhatsApp green that means \"act\".\n\nTypographically the site speaks in condensed uppercase — the lettering of works signboards and site hoardings — set in Archivo Variable, self-hosted and exercising both the weight (100–900) and width (62–125%) axes from a single variable file. Headings are condensed and shouty in the way a real signboard is; body copy is normal width and quietly readable at a long line height. There is exactly one authored motion moment on the entire site. Everything else that moves is a state transition responding to a pointer or a keystroke.",
+    "keyCharacteristics": [
+      "Light mineral ground for outdoor daylight legibility; dark regions are chosen, not ambient",
+      "Committed colour fields that own entire sections (.field-graphite, .field-olive, .field-stone)",
+      "Condensed uppercase Archivo headings against normal-width body — one variable family, two axes",
+      "Barely-rounded corners (3px / 5px), 1px sand rules, no decorative chrome",
+      "One authored motion moment (the gabion cross-section); everything else is state",
+      "Authored 24×24 / 1.75-stroke icon set; no emoji, no icon font, no third-party set",
+      "Every image is a marked placeholder that announces what it is missing"
+    ],
+    "rules": [
+      {
+        "name": "The Committed Field Rule",
+        "body": "Colour arrives as a whole region or not at all. Apply .field-graphite, .field-olive or .field-stone to a full-bleed <section>; never to a card, a callout, or a paragraph. If you want a section to feel different, change its field — do not sprinkle the accent into an otherwise white section. The field classes also re-map their own descendants (headings go to stone-000, .lede goes to stone-200 on graphite and olive-100 on olive), so a field is a complete environment, not a background swap.",
+        "section": "colors"
+      },
+      {
+        "name": "The Field Alternation Rule",
+        "body": "Two committed fields never touch. Reading down any page, a dark or coloured field is always separated from the next by a light section. On the home page the run is: graphite hero → graphite problems → white explainer → stone benefits → white services → olive reasons → white projects → stone FAQ → olive CTA → graphite footer.",
+        "section": "colors"
+      },
+      {
+        "name": "The On-Dark Step Rule",
+        "body": "--olive-300 (#a8b884) and --rust-400 (#d2703f) exist for exactly one reason: the 500/600 steps fail contrast on graphite. Measured on graphite-900: olive-500 is 3.58:1 (fails), olive-300 is 7.80:1 (passes AA and AAA); rust-600 is 2.89:1 (fails), rust-400 is 4.85:1 (passes AA). Do not \"simplify the ramp\" by deleting these steps — they are the reason the footer column headings and the problem-section icons are legible. Conversely, olive-300 on olive-700 is only 3.73:1, so it must not be reused inside .field-olive; that field's on-colour is olive-100 (6.51:1).",
+        "section": "colors"
+      },
+      {
+        "name": "The Rust Means Damage Rule",
+        "body": "Oxide rust names a failure — eroding ground, a cracked wall, an invalid field. It is never a brand accent and never decorative. If a thing is not broken, it is not rust.",
+        "section": "colors"
+      },
+      {
+        "name": "The One Green Rule",
+        "body": "action-600 is reserved for the WhatsApp conversion. If a second thing on a screen is that green, one of them is wrong.",
+        "section": "colors"
+      },
+      {
+        "name": "The Two-Axis Rule",
+        "body": "Width carries hierarchy, weight carries emphasis. Headings get narrower as they get more important (82 → 86 → 92 → 100). Never fake a display face by letterspacing a condensed heading open, and never set body copy at a condensed width.",
+        "section": "typography"
+      },
+      {
+        "name": "The Width-Reset Rule",
+        "body": "Any small uppercase label explicitly resets font-stretch: 100%. Condensed and tracked-out and uppercase is unreadable at 12px. The same reset applies where an h2 must read as a card title rather than a section heading (.aside-card h2, .aside-note h2 also drop text-transform and letter-spacing).",
+        "section": "typography"
+      },
+      {
+        "name": "The No Eyebrow Rule",
+        "body": "Nothing decorative sits above a heading. There are no kickers, no category tags, no \"OUR SERVICES\" mini-labels. The only element that ever appears above a heading is the amber \"Contoh susunan\" placeholder chip, and it is a warning, not a style.",
+        "section": "typography"
+      },
+      {
+        "name": "The Air-Above Rule",
+        "body": "More space above a heading than below it. A section heading sits under --space-3xl of section padding and hands --space-s down to its lede and --space-xl to its content. Never let a heading sit closer to what precedes it than to what follows.",
+        "section": "layout"
+      },
+      {
+        "name": "The Reachable-Action Rule",
+        "body": "Below 64rem a fixed two-action bar (WhatsApp + Telefon) is pinned to the bottom of the viewport, and the footer reserves 4.5rem of extra bottom padding so nothing is trapped underneath it. The bar retires only once the header's own WhatsApp button appears — retiring it at 48rem left tablets and landscape phones with no persistent action at all.",
+        "section": "layout"
+      },
+      {
+        "name": "The Measure Rule",
+        "body": "Nothing runs wider than it can be read. --measure is 68ch for prose, 60ch for a lede, 46ch for a section head, 42–44ch for card body copy, 18–20ch for an H1.",
+        "section": "layout"
+      },
+      {
+        "name": "The Real-Light Rule",
+        "body": "Every shadow has both an offset and a blur, and its colour is graphite-tinted (rgba(28,31,29,…)), never neutral black. A zero-offset shadow is a glow, and glows are banned here.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Flat-At-Rest Rule",
+        "body": "If a surface has a shadow when nothing is happening, justify it. Cards, chips, tiles and channels are separated by a 1px --rule border on white, not by elevation.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Dashed-Means-Missing Rule",
+        "body": "A dashed border on this site means content is absent, never that content is optional or secondary. Photo slots, the empty map panel, and the unconfirmed Facebook channel are dashed. Nothing else is.",
+        "section": "shapes"
+      },
+      {
+        "name": "The One-Ring Rule",
+        "body": "Focus is amber everywhere. Do not invent a per-component focus style, and do not remove the outline in favour of a border change — the border change is the hover language.",
+        "section": "components"
+      },
+      {
+        "name": "The One Moment Rule",
+        "body": "The gabion cross-section is the only authored animation on the site. Everything else that moves is a state transition — 0.15s for colour on links and nav, 0.18s for card/button hover, 0.22s for the FAQ chevron rotation — all on --ease-out (cubic-bezier(0.16, 1, 0.3, 1)). No scroll-linked parallax, no staggered section reveals, no counters, no marquees. If you need a second animated moment, you almost certainly need a better diagram instead.",
+        "section": "components"
+      },
+      {
+        "name": "The Honest Gap Rule",
+        "body": "An absent thing is drawn as an absent thing — hatched, dashed, amber, and captioned with what is missing. Never fill a gap with stock imagery, an invented project, a lorem paragraph, or a dead link.",
+        "section": "components"
+      }
+    ],
+    "dos": [
+      "Do treat the conventional arrangement as the deliverable. This is the category canon by explicit user decision over the assigned direction \"The Section Sheet\" (seed key c2a06cab); craft goes into execution, never into rearranging the expected page.",
+      "Do apply colour as a committed field on a full-bleed section (.field-graphite, .field-olive, .field-stone), and alternate so two non-light fields never touch.",
+      "Do use --olive-300 and --rust-400 on graphite grounds and the 500/600 steps on light ones. Measured: olive-300 7.80:1 vs olive-500 3.58:1 on graphite; rust-400 4.85:1 vs rust-600 2.89:1.",
+      "Do set headings condensed and uppercase at the exact stretch for their level — h1 82%, h2 86%, h3 92%, h4 100% — and reset any small tracked label to font-stretch: 100%.",
+      "Do leave more space above a heading than below it.",
+      "Do keep --radius-s (3px) and --radius-m (5px) as the only radii, and let 1px sand borders do the separating.",
+      "Do draw new icons on the same 24×24 grid at 1.75 stroke with round caps, inheriting currentColor.",
+      "Do give every interactive element the global amber focus ring, and brighten it to #ffd166 inside dark fields.",
+      "Do keep the persistent WhatsApp/Telefon bar below 64rem and keep the footer's 4.5rem bottom clearance with it.",
+      "Do ship every change working without JavaScript and under prefers-reduced-motion — the diagram, the FAQ and the navigation all degrade to a usable finished state."
+    ],
+    "donts": [
+      "Don't use gradient text, gradient fills or gradient scrims. The hero scrim is a flat rgba(21,24,22,0.68) wash precisely because its job is legibility, not atmosphere. (The only linear-gradient in the build is a hard-stop two-tone hatch pattern for placeholders — a texture, not a blend.)",
+      "Don't introduce glassmorphism, backdrop-filter, frosted panels or translucent cards.",
+      "Don't add eyebrows, kickers or category labels above headings.",
+      "Don't use emoji or unicode characters as icons, or install a third-party icon set — extend Icon.astro instead.",
+      "Don't use a coloured border-left thicker than 1px as a callout device. There is not one in the build, and adding one would import a different design language.",
+      "Don't write a zero-offset shadow, a neutral-black shadow, or a coloured glow. Shadows are graphite-tinted, offset and blurred.",
+      "Don't paint anything action-600 green except the WhatsApp conversion, and don't use rust for anything that is not damage or an error.",
+      "Don't add a second authored animation. New motion must be a state transition on --ease-out under 0.25s.",
+      "Don't scatter accent colour into an otherwise light section as flecks, chips or coloured headings — change the field or leave it alone.",
+      "Don't restyle a PhotoSlot, the draft strip, or a \"Contoh susunan\" chip to look finished. Remove them when the real material arrives."
+    ]
+  }
+}
