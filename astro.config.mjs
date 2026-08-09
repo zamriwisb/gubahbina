@@ -1,20 +1,21 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
-// GitHub Pages project page: https://zamriwisb.github.io/gubahbina/
-// `site` is the origin only; `base` is the sub-path the repo is served from.
-// Together they drive canonical URLs, the sitemap and Open Graph tags.
+// Domain sendiri di GitHub Pages: https://gubahbina.dev-aplikasiniaga.com
+// Laman duduk di root domain, jadi tiada `base` — laluan dalaman kekal '/...'.
+// Nilai ini memacu canonical URL, sitemap dan tag Open Graph.
 //
-// Apabila klien menetapkan domain sendiri: tukar SITE kepada domain itu,
-// buang BASE (atau set '/'), dan kemas kini src/config/site.ts serta
-// public/robots.txt. Pautan dalaman tidak perlu diubah — withBase() dalam
-// src/lib/paths.ts akan menyesuaikan diri dengan sendirinya.
-const SITE = 'https://zamriwisb.github.io';
-const BASE = '/gubahbina';
+// Domain disimpan dalam public/CNAME supaya ia kekal setiap kali workflow
+// menyiarkan artifact baharu. Jika domain ditukar, kemas kini di sini, dalam
+// public/CNAME, src/config/site.ts dan public/robots.txt.
+//
+// Jika laman perlu kembali ke sub-laluan (cth. project page), set semula
+// `base` di bawah — withBase() dalam src/lib/paths.ts akan menyesuaikan
+// setiap pautan dalaman dengan sendirinya.
+const SITE = 'https://gubahbina.dev-aplikasiniaga.com';
 
 export default defineConfig({
   site: SITE,
-  base: BASE,
   integrations: [sitemap()],
   build: {
     inlineStylesheets: 'auto',

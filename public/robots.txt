@@ -1,6 +1,6 @@
 User-agent: *
 Allow: /
 
-# Kemas kini domain sebenar di sini, dalam astro.config.mjs, dan dalam
-# src/config/site.ts apabila domain telah ditetapkan.
-Sitemap: https://zamriwisb.github.io/gubahbina/sitemap-index.xml
+# Kemas kini domain sebenar di sini, dalam astro.config.mjs, dalam
+# public/CNAME, dan dalam src/config/site.ts apabila domain ditukar.
+Sitemap: https://gubahbina.dev-aplikasiniaga.com/sitemap-index.xml
