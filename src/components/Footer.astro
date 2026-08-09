@@ -5,6 +5,7 @@ import Icon from './Icon.astro';
 import logo from '../assets/logo-gubah-bina-mark.png';
 import { site, nav, waLink } from '../config/site';
 import { services } from '../data/content';
+import { withBase } from '../lib/paths';
 
 const year = new Date().getFullYear();
 ---
@@ -13,7 +14,7 @@ const year = new Date().getFullYear();
   <div class="wrap">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a href="/" class="brand">
+        <a href={withBase('/')} class="brand">
           <Image
             src={logo}
             alt={site.name}
@@ -46,7 +47,7 @@ const year = new Date().getFullYear();
       <nav class="footer-col" aria-label="Pautan halaman">
         <h2 class="footer-col__title">Halaman</h2>
         <ul>
-          {nav.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+          {nav.map((item) => <li><a href={withBase(item.href)}>{item.label}</a></li>)}
         </ul>
       </nav>
 
@@ -56,7 +57,7 @@ const year = new Date().getFullYear();
           {
             services.map((s) => (
               <li>
-                <a href={`/perkhidmatan/#${s.slug}`}>{s.title}</a>
+                <a href={withBase(`/perkhidmatan/#${s.slug}`)}>{s.title}</a>
               </li>
             ))
           }

@@ -1,0 +1,53 @@
+# Bina laman Astro dan siarkan ke GitHub Pages.
+#
+# Output binaan (dist/) tidak disimpan dalam repositori — ia dijana di sini
+# pada setiap tolakan ke `main`, kemudian dimuat naik sebagai artifact Pages.
+#
+# Sebelum ini berjalan buat kali pertama:
+#   Settings > Pages > Build and deployment > Source: GitHub Actions
+name: Deploy ke GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  # Membolehkan penyiaran semula secara manual dari tab Actions.
+  workflow_dispatch:
+
+# Kebenaran minimum yang diperlukan oleh actions/deploy-pages.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Satu penyiaran pada satu masa. `cancel-in-progress: false` supaya penyiaran
+# yang sedang berjalan dibiarkan selesai dan tidak meninggalkan laman separuh.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Bina
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Memasang dependency, menjalankan `astro build`, dan memuat naik dist/
+      # sebagai artifact Pages — ketiga-tiganya sekali.
+      - name: Bina laman Astro
+        uses: withastro/action@v3
+        with:
+          node-version: 22
+
+  deploy:
+    name: Siar
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Siarkan ke GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

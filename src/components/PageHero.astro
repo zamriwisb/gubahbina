@@ -1,5 +1,6 @@
 ---
 import { nav } from '../config/site';
+import { withBase } from '../lib/paths';
 
 interface Props {
   title: string;
@@ -16,7 +17,7 @@ const current = nav.find((n) => n.href === path);
   <div class="wrap">
     <nav class="crumbs" aria-label="Laluan halaman">
       <ol>
-        <li><a href="/">Utama</a></li>
+        <li><a href={withBase('/')}>Utama</a></li>
         <li aria-current="page">{current?.label ?? title}</li>
       </ol>
     </nav>

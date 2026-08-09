@@ -21,10 +21,14 @@ export const site = {
   tagline: 'Pakar Memasang Gabion Wall untuk Tebing, Cerun & Kawalan Hakisan',
 
   /**
-   * Domain sebenar. Digunakan untuk canonical URL, sitemap dan Open Graph.
-   * Belum ditetapkan — kemas kini di sini dan juga dalam astro.config.mjs.
+   * URL awam penuh laman ini. Digunakan dalam JSON-LD dan sebagai sandaran
+   * untuk canonical URL apabila `Astro.site` tiada.
+   *
+   * Buat masa ini laman disiarkan di GitHub Pages sebagai project page.
+   * Apabila klien menetapkan domain sendiri, kemas kini di sini dan juga
+   * dalam astro.config.mjs (SITE dan BASE) serta public/robots.txt.
    */
-  url: 'https://www.example-gabionwall.com',
+  url: 'https://zamriwisb.github.io/gubahbina',
 
   /** Kawasan perkhidmatan — disahkan: seluruh Malaysia. */
   serviceArea: 'Seluruh Malaysia',

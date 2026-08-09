@@ -5,6 +5,7 @@ import PhotoSlot from '../components/PhotoSlot.astro';
 import GabionDiagram from '../components/GabionDiagram.astro';
 import Faq from '../components/Faq.astro';
 import { site, waLink } from '../config/site';
+import { withBase } from '../lib/paths';
 import { problems, benefits, services, reasons, faqs, projectSlots } from '../data/content';
 
 const homeFaqs = faqs.slice(0, 5);
@@ -61,7 +62,7 @@ const heroPhoto = {
               <Icon name="whatsapp" size={20} />
               WhatsApp Sekarang
             </a>
-            <a class="btn btn--onDark" href="/hubungi/">
+            <a class="btn btn--onDark" href={withBase('/hubungi/')}>
               <Icon name="survey" size={20} />
               Minta Semakan Tapak
             </a>
@@ -170,7 +171,7 @@ const heroPhoto = {
     <div class="wrap">
       <div class="services-head">
         <h2>Perkhidmatan kami</h2>
-        <a href="/perkhidmatan/" class="services-head__link">
+        <a href={withBase('/perkhidmatan/')} class="services-head__link">
           Semua perkhidmatan
           <Icon name="arrow-right" size={18} />
         </a>
@@ -180,7 +181,7 @@ const heroPhoto = {
         {
           services.map((s, i) => (
             <li class:list={['service', i === 0 && 'service--feature']}>
-              <a href={`/perkhidmatan/#${s.slug}`} class="service__link">
+              <a href={withBase(`/perkhidmatan/#${s.slug}`)} class="service__link">
                 <span class="service__icon">
                   <Icon name={s.icon} size={i === 0 ? 34 : 28} />
                 </span>
@@ -266,7 +267,7 @@ const heroPhoto = {
 
     <div class="wrap">
       <p class="projects-foot">
-        <a href="/projek/" class="btn btn--ghost">
+        <a href={withBase('/projek/')} class="btn btn--ghost">
           Lihat semua projek
           <Icon name="arrow-right" size={18} />
         </a>
@@ -279,7 +280,7 @@ const heroPhoto = {
     <div class="wrap faq-grid">
       <div class="faq-aside">
         <h2>Soalan lazim</h2>
-        <a href="/faq/" class="faq-aside__link">
+        <a href={withBase('/faq/')} class="faq-aside__link">
           Semua soalan
           <Icon name="arrow-right" size={18} />
         </a>
